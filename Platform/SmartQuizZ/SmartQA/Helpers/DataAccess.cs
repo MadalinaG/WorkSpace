@@ -319,7 +319,7 @@ namespace SmartQA.Helpers
             }
             return countNr;
         }
-        public int SaveQuizDB(TestModels test)
+        public int SaveQuizDB(TestModels test, List<BGDocument> bgDocuments)
         {
             if (test.ID != null)
             {
@@ -373,18 +373,55 @@ namespace SmartQA.Helpers
                                 transaction.Commit();
                             }
                         }
+
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+                            using (SqlCommand command = new SqlCommand(UpdateTopicTableWhenInsertQuiz, connection, transaction))
+                            {
+                                command.Parameters.Add("@NumberOfQuizesForTopic", SqlDbType.Int).Value = 1;
+                                command.Parameters.Add("@NrOfQuestionsForTopic", SqlDbType.Int).Value = test.QuestionsNumber;
+                                command.Parameters.Add("@TopicID", SqlDbType.Int).Value = test.TopicID;
+                                int rows = command.ExecuteNonQuery();
+                                transaction.Commit();
+                            }
+                        }
+                        if (bgDocuments != null)
+                        {
+                            if (bgDocuments.Count() > 0)
+                            {
+                                foreach (BGDocument bgDoc in bgDocuments)
+                                {
+                                    using (SqlTransaction transaction = connection.BeginTransaction())
+                                    {
+                                        using (SqlCommand command = new SqlCommand(insertBGDoc, connection, transaction))
+                                        {
+                                            command.Parameters.Add("@Title", SqlDbType.NVarChar).Value = bgDoc.Title;
+                                            command.Parameters.Add("@TopicID", SqlDbType.Int).Value = bgDoc.TopicID;
+                                            command.Parameters.Add("@TestID", SqlDbType.Int).Value = bgDoc.TestID;
+                                            command.Parameters.Add("@AddedByID", SqlDbType.NVarChar).Value = bgDoc.AddedByID;
+                                            command.Parameters.Add("@FileName", SqlDbType.NVarChar).Value = bgDoc.FileName;
+                                            command.Parameters.Add("@Path", SqlDbType.NVarChar).Value = bgDoc.Path;
+
+                                            int rows = command.ExecuteNonQuery();
+                                            transaction.Commit();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
                         connection.Close();
                     }
-                    UpdateTopicWhenQuizInserted(test);
+                  
                 }
                 catch (Exception ex)
                 {
+                    throw;
                     WriteErrorToDb(ex.Message);
                 }
             }
             return test.ID;
         }
-
         public void SaveTopicDB(TopicModels topic, string UserName)
         {
             topic.ID = GetMAXIdForTable("Topic");
@@ -512,36 +549,6 @@ namespace SmartQA.Helpers
             }
         }
 
-        private void UpdateTopicWhenQuizInserted(TestModels test)
-        {
-            if (_connectionString != string.Empty)
-            {
-                try
-                {
-                    using (SqlConnection connection = new SqlConnection(_connectionString))
-                    {
-                        connection.Open();
-
-                        using (SqlTransaction transaction = connection.BeginTransaction())
-                        {
-                            using (SqlCommand command = new SqlCommand(UpdateTopicTableWhenInsertQuiz, connection, transaction))
-                            {
-                                command.Parameters.Add("@NumberOfQuizesForTopic", SqlDbType.Int).Value = 1;
-                                command.Parameters.Add("@NrOfQuestionsForTopic", SqlDbType.Int).Value = test.QuestionsNumber;
-                                command.Parameters.Add("@TopicID", SqlDbType.Int).Value = test.TopicID;
-                                int rows = command.ExecuteNonQuery();
-                                transaction.Commit();
-                            }
-                        }
-                        connection.Close();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToDb(ex.Message);
-                }
-            }
-        }
 
         public void UpdateTopic(TopicModels topic)
         {
@@ -602,7 +609,7 @@ namespace SmartQA.Helpers
                         {
                             using (SqlCommand command = new SqlCommand(writeErrorMessageTODB, connection, transaction))
                             {
-                                command.Parameters.Add("@NumberOfQuizesForTopic", SqlDbType.NVarChar, 4000).Value = ErrorMessage;
+                                command.Parameters.Add("@ErrorMessage", SqlDbType.NVarChar, 4000).Value = ErrorMessage;
                                 int rows = command.ExecuteNonQuery();
                                 transaction.Commit();
                             }
@@ -632,13 +639,12 @@ namespace SmartQA.Helpers
             GenericType four = new GenericType();
             four.ID = 4; four.Value = "5 Answers (a, b, c, d, e)";
 
-            GenericType five = new GenericType();
-            five.ID = 5; five.Value = "More than 5 answers";
+            
             AnswerTypeList.Add(one);
             AnswerTypeList.Add(two);
             AnswerTypeList.Add(three);
             AnswerTypeList.Add(four);
-            AnswerTypeList.Add(five);
+            
 
             return AnswerTypeList;
 
@@ -748,7 +754,7 @@ namespace SmartQA.Helpers
 
         }
 
-        public void DeleteTopic(int topicId)
+        public void DeleteObject(int Id, string tableName)
         {
             if (_connectionString != string.Empty)
             {
@@ -760,9 +766,9 @@ namespace SmartQA.Helpers
 
                         using (SqlTransaction transaction = connection.BeginTransaction())
                         {
-                            using (SqlCommand command = new SqlCommand(deleteTopic, connection, transaction))
+                            string sql = string.Format(deleteObject, tableName, Id);
+                            using (SqlCommand command = new SqlCommand(sql, connection, transaction))
                             {
-                                command.Parameters.Add("@TopicId", SqlDbType.Int).Value = topicId;
                                 int rows = command.ExecuteNonQuery();
                                 transaction.Commit();
                             }
@@ -978,7 +984,6 @@ namespace SmartQA.Helpers
                         {
                             using (SqlCommand command = new SqlCommand(insertQuestion, connection, transaction))
                             {
-                                command.Parameters.Add("@ID", SqlDbType.Int).Value = questionModels.ID;
                                 command.Parameters.Add("@QuizID", SqlDbType.Int).Value = questionModels.QuizID;
                                 command.Parameters.Add("@TopicID", SqlDbType.Int).Value = questionModels.TopicID;
                                 command.Parameters.Add("@NumberOfAnswers", SqlDbType.Int).Value = questionModels.NumberOfAnsers;
@@ -987,38 +992,35 @@ namespace SmartQA.Helpers
                                 transaction.Commit();
                             }
                         }
-                        connection.Close();
-                    }
 
-                }
-                catch (Exception ex)
-                {
-                    WriteErrorToDb(ex.Message);
-                }
-            }
-            if (rows > 0)
-            {
-                UpdateQuestionNR(questionModels.QuizID);
-                InsertAnswers(ValidAnswerList, questionModels.ID);
-            }
-        }
-
-        private void UpdateQuestionNR(int id)
-        {
-            if (_connectionString != string.Empty)
-            {
-                try
-                {
-                    using (SqlConnection connection = new SqlConnection(_connectionString))
-                    {
-                        connection.Open();
-                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        if(rows > 0)
                         {
-                            using (SqlCommand command = new SqlCommand(UpdateTestWithQuestionNR, connection, transaction))
+                            using (SqlTransaction transaction = connection.BeginTransaction())
                             {
-                                command.Parameters.Add("@TestId", SqlDbType.Int).Value = id;
-                                command.ExecuteNonQuery();
-                                transaction.Commit();
+                                using (SqlCommand command = new SqlCommand(UpdateTestWithQuestionNR, connection, transaction))
+                                {
+                                    command.Parameters.Add("@TestId", SqlDbType.Int).Value = questionModels.QuizID;
+                                    command.ExecuteNonQuery();
+                                    transaction.Commit();
+                                }
+                            }
+
+                            foreach (AnswerModels answer in ValidAnswerList)
+                            {
+                                answer.ID = GetMAXIdForTable("Answer");
+                                answer.QuestionID = questionModels.ID;
+                                int rowsAnswer = 0;
+                                using (SqlTransaction transaction = connection.BeginTransaction())
+                                {
+                                    using (SqlCommand command = new SqlCommand(insertAnswer, connection, transaction))
+                                    {
+                                        command.Parameters.Add("@QuizID", SqlDbType.Int).Value = answer.QuizID;
+                                        command.Parameters.Add("@QuestionID", SqlDbType.Int).Value = answer.QuestionID;
+                                        command.Parameters.Add("@Text", SqlDbType.NVarChar).Value = answer.Text;
+                                        rowsAnswer = command.ExecuteNonQuery();
+                                        transaction.Commit();
+                                    }
+                                }
                             }
                         }
                         connection.Close();
@@ -1030,8 +1032,90 @@ namespace SmartQA.Helpers
                     WriteErrorToDb(ex.Message);
                 }
             }
+          
         }
+        public string GetTitle(int ID)
+        {
+            string Title = string.Empty;
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
 
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+                            using (SqlCommand command = new SqlCommand(getTitle, connection, transaction))
+                            {
+                                command.Parameters.Add(new SqlParameter("ID", ID));
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+
+                                        for (int i = 0; i < reader.FieldCount; i++)
+                                        {
+                                            Title = reader["Title"].ToString();
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            return Title;
+        }
+        public string getTopicName(int ID)
+        {
+            string Title = string.Empty;
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+                            using (SqlCommand command = new SqlCommand(getTopicNameq, connection, transaction))
+                            {
+                                command.Parameters.Add(new SqlParameter("ID", ID));
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+
+                                        for (int i = 0; i < reader.FieldCount; i++)
+                                        {
+                                            Title = reader["TopicName"].ToString();
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+            return Title;
+        }
         public int CountQuestions(int QuizID)
         {
             int questions = -1;
@@ -1071,14 +1155,19 @@ namespace SmartQA.Helpers
             }
             return questions;
         }
-
-        private void InsertAnswers(List<AnswerModels> ValidAnswerList, int id)
+        public void UpdateTestAndSaveBGDoc(List<BGDocument> bgDocuments, TestModels test)
         {
-            foreach (AnswerModels answer in ValidAnswerList)
+            if (string.IsNullOrEmpty(test.Description))
             {
-                answer.ID = GetMAXIdForTable("Answer");
-                answer.QuestionID = id;
-                int rows = 0;
+                test.Description = string.Empty;
+
+            }
+            if (string.IsNullOrEmpty(test.QuizInstructions))
+            {
+                test.QuizInstructions = string.Empty;
+            }
+            if (bgDocuments.Count() > 0 || (!string.IsNullOrEmpty(test.Description) && !string.IsNullOrEmpty(test.QuizInstructions)))
+            {
                 if (_connectionString != string.Empty)
                 {
                     try
@@ -1086,25 +1175,48 @@ namespace SmartQA.Helpers
                         using (SqlConnection connection = new SqlConnection(_connectionString))
                         {
                             connection.Open();
-                            using (SqlTransaction transaction = connection.BeginTransaction())
+                            if((!string.IsNullOrEmpty(test.Description) || !string.IsNullOrEmpty(test.QuizInstructions)))
                             {
-                                using (SqlCommand command = new SqlCommand(insertAnswer, connection, transaction))
+                                using (SqlTransaction transaction = connection.BeginTransaction())
                                 {
-                                    command.Parameters.Add("@ID", SqlDbType.Int).Value = answer.ID;
-                                    command.Parameters.Add("@QuizID", SqlDbType.Int).Value = answer.QuizID;
-                                    command.Parameters.Add("@QuestionID", SqlDbType.Int).Value = answer.QuestionID;
-                                    command.Parameters.Add("@Text", SqlDbType.NVarChar).Value = answer.Text;
-                                    rows = command.ExecuteNonQuery();
-                                    transaction.Commit();
+                                    using (SqlCommand command = new SqlCommand(updateTest, connection, transaction))
+                                    {
+                                        command.Parameters.Add("@Description", SqlDbType.NVarChar).Value = test.Description;
+                                        command.Parameters.Add("@QuizInstructions", SqlDbType.NVarChar).Value = test.QuizInstructions;
+                                        command.Parameters.Add("@ID", SqlDbType.Int).Value = test.ID;
+                                        int rows = command.ExecuteNonQuery();
+                                        transaction.Commit();
+                                    }
+                                }
+                            }
+                            if(bgDocuments.Count() > 0)
+                            {
+                                foreach(BGDocument bgDoc in bgDocuments)
+                                {
+                                using (SqlTransaction transaction = connection.BeginTransaction())
+                                {
+                                    using (SqlCommand command = new SqlCommand(insertBGDoc, connection, transaction))
+                                    {
+                                        command.Parameters.Add("@Title", SqlDbType.NVarChar).Value = bgDoc.Title;
+                                        command.Parameters.Add("@TopicID", SqlDbType.Int).Value = bgDoc.TopicID;
+                                        command.Parameters.Add("@TestID", SqlDbType.Int).Value = bgDoc.TestID;
+                                        command.Parameters.Add("@AddedByID", SqlDbType.NVarChar).Value = bgDoc.AddedByID;
+                                        command.Parameters.Add("@FileName", SqlDbType.NVarChar).Value = bgDoc.FileName;
+                                        command.Parameters.Add("@Path", SqlDbType.NVarChar).Value = bgDoc.Path;
+
+                                        int rows = command.ExecuteNonQuery();
+                                        transaction.Commit();
+                                    }
+                                }
                                 }
                             }
                             connection.Close();
                         }
-
                     }
                     catch (Exception ex)
                     {
                         WriteErrorToDb(ex.Message);
+                        
                     }
                 }
             }
@@ -1223,7 +1335,7 @@ namespace SmartQA.Helpers
         private static string getUserNameByEmailAddres = @"Select UserName From AspNetUsers Where Email = @Email";
         private static string updateTopic = @"Update Topic Set TopicName = @TopicName, Description = @Description, PhotoName = @PhotoName Where TopicName = @TopicName ";
         private static string updateTopicWithoutPhoto = @"Update Topic Set TopicName = @TopicName, Description = @Description Where TopicName = @TopicName ";
-        private static string deleteTopic = @"DELETE FROM Topic WHERE ID = @TopicId";
+        private static string deleteObject = @"DELETE FROM {0} WHERE ID = {1}";
         private static string selectUser = @"Select ID, Email, Username, Phone, Pictures, Company, TimeZone FROM Users WHERE ID = @UserId";
         private static string updateUsers = @"Update Users SET Email = @Email, Username = @Username,  Phone = @Phone, Pictures = @Pictures,Company = @Company,  TimeZone = @TimeZone WHERE ID = @ID ";
         private static string updateAspUser = @"Update AspNetUsers SET Email = @Email, PhoneNumber = @Phone, UserName = @Username WHERE Id = @ID";
@@ -1233,12 +1345,20 @@ namespace SmartQA.Helpers
         private static string getTestsCount = @"Select Count('') From Test";
         private static string getTests = @"Select Top( {0} )  ID,Title,TopicID,AddedTime,QuestionsNumber, (Select TopicName From Topic WHERE ID = TopicID) AS TopicName, Solved, (Select PhotoName From Topic Where ID = TopicID) AS PhotoName, (Select UserName from AspNetUsers Where Id = AddedByID) AS Username, AddedByID From Test Order By AddedTime DESC";
 
-        private static string insertQuestion = @"Insert Into Question (ID, QuizID, TopicID, NumberOfAnswers, Text, DocumentID, MultipleAnswers, QuestionSolved) Values (@ID, @QuizID, @TopicID, @NumberOfAnswers, @Text, 0, 0, 0)";
+        private static string insertQuestion = @"Insert Into Question 
+                                                (ID, QuizID, TopicID, NumberOfAnswers, Text, DocumentID, MultipleAnswers, QuestionSolved) 
+                                                Values ((SELECT ISNULL(MAX (ID),0) FROM Answer) + 1, @QuizID, @TopicID, @NumberOfAnswers, @Text, 0, 0, 0)";
 
-        private static string insertAnswer = @"Insert Into Answer (ID, QuizID, QuestionID, Text) Values (@ID, @QuizID, @QuestionID, @Text)";
+        private static string insertAnswer = @"Insert Into Answer (ID, QuizID, QuestionID, Text) Values ((SELECT ISNULL(MAX (ID), 0) FROM Answer) + 1, @QuizID, @QuestionID, @Text)";
 
-      
-    
+        private static string getTitle = @"Select Title From Test Where ID = @ID";
+        private static string getTopicNameq = @"Select TopicName From Topic Where ID = @ID";
+        private static string updateTest = @"Update Test SET Description = @Description, QuizInstructions = @QuizInstructions WHERE ID = @ID";
+        private static string insertBGDoc = @"INSERT INTO BackgroundDocument 
+                                                                            (ID, Title, TopicID, TestID, AddedByID, AddedTime, FileName, Path) 
+                                                     Values ((select ISNULL(Max(ID),0) + 1 from BackgroundDocument), @Title, @TopicID, @TestID, @AddedByID, GETDATE(), @FileName, @Path)";
+
+
 
     }
 }

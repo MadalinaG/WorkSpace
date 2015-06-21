@@ -112,7 +112,7 @@ namespace SmartQA.Controllers
         public ActionResult DeleteTopic(int topicId)
         {
             DataAccess dbWork = new DataAccess(connectionString);
-            dbWork.DeleteTopic(topicId);
+            dbWork.DeleteObject(topicId, "Topic");
 
             return RedirectToAction("Topics");
         }
@@ -216,30 +216,72 @@ namespace SmartQA.Controllers
         [HttpPost]
         public ActionResult CreateQuiz(TestModels test)
         {
-            string id = User.Identity.Name;
+            test.AddedByID = User.Identity.GetUserId();
             test.NumberOfAnswerForQuestion += 1;
+
+            List<BGDocument> bgDocuments = new List<BGDocument>();
+            DataAccess dbWork = new DataAccess(connectionString);
+            string topicName = dbWork.getTopicName(test.TopicID);
+            string pathBGDOC = Path.Combine(Server.MapPath("~/UserFiles/"), User.Identity.GetUserId(), "BackgroundDocuments",topicName);
+            string pathQuiz = Path.Combine(Server.MapPath("~/UserFiles/"), User.Identity.GetUserId(), "Tests", topicName);
+            DirectoryInfo dir1 = new DirectoryInfo(pathBGDOC);
+            DirectoryInfo dir2 = new DirectoryInfo(pathQuiz);
+            if (!dir1.Exists)
+            {
+                Directory.CreateDirectory(pathBGDOC);
+            }
+            if (!dir2.Exists)
+            {
+                Directory.CreateDirectory(pathQuiz);
+            }
+
             for (int i = 0; i < Request.Files.Count; i++)
             {
                 HttpPostedFileBase hpf = Request.Files[i] as HttpPostedFileBase;
-                if (hpf.ContentLength > 0)
+                if (hpf.ContentLength > 0 && i == 0)
                 {
                     var fileName = Path.GetFileName(hpf.FileName);
-                    test.FileName = fileName;
+                    test.FileName = hpf.FileName;
+
                     var extension = Path.GetExtension(hpf.FileName);
                     var onlyFileName = Path.GetFileNameWithoutExtension(hpf.FileName);
 
-                    var newfilename = onlyFileName + "_" + id + "_" + test.TopicID.ToString() + extension;
+                    var newfilename = onlyFileName + "_" + test.ID.ToString() + "_" + test.TopicID.ToString() + extension;
 
-                    var path = Path.Combine(Server.MapPath("~/TestDocuments/"), newfilename);
-                    test.QuizPathOnServer = Path.Combine("~/TestDocuments/", newfilename);
-                    DirectoryInfo dir = new DirectoryInfo(Server.MapPath("~/TestDocuments/"));
-                    if (!dir.Exists)
+                    var pathDoc = Path.Combine(pathQuiz, newfilename);
+                    test.QuizPathOnServer = pathDoc;
+
+                    hpf.SaveAs(pathDoc);
+                    
+                }
+                else
+                {
+                    BGDocument bgDocument = new BGDocument();
+                   
+                    bgDocument.TestID = test.ID;
+                    bgDocument.TopicID = test.TopicID;
+                    bgDocument.AddedByID = User.Identity.GetUserId();
+                    if (hpf.ContentLength > 0)
                     {
-                        Directory.CreateDirectory(Server.MapPath("~/TestDocuments/"));
+                        var fileName = Path.GetFileName(hpf.FileName);
+                        bgDocument.FileName = hpf.FileName;
+                        bgDocument.Title = fileName;
+
+                        var extension = Path.GetExtension(hpf.FileName);
+                        var onlyFileName = Path.GetFileNameWithoutExtension(hpf.FileName);
+
+                        var newfilename = onlyFileName + "_" + test.ID.ToString() + "_" + test.TopicID.ToString() + extension;
+
+                        var pathDoc = Path.Combine(pathBGDOC, newfilename);
+                        bgDocument.Path = pathDoc;
+
+                        hpf.SaveAs(pathDoc);
+                        bgDocuments.Add(bgDocument);
                     }
-                    hpf.SaveAs(path);
                 }
             }
+            dbWork.SaveQuizDB( test, bgDocuments);
+
             return RedirectToAction("Index");
         }
 
@@ -282,6 +324,11 @@ namespace SmartQA.Controllers
             if (TempData["CurrentQ"] != null)
             {
                 test = TempData["CurrentQ"] as TestModels;
+                if(test.Title == null)
+                {
+                    DataAccess dbWork = new DataAccess(connectionString);
+                    test.Title = dbWork.GetTitle(test.ID);
+                }
             }
             else
             {
@@ -340,7 +387,7 @@ namespace SmartQA.Controllers
 
             if (test.QuizSaved == false)
             {
-                quizId = dbWork.SaveQuizDB(test);
+                quizId = dbWork.SaveQuizDB(test, null);
                 test.QuizSaved = true;
             }
 
@@ -361,6 +408,7 @@ namespace SmartQA.Controllers
             test.Questions[0].NumberOfAnsers = ValidAnswerList.Count();
 
             dbWork.SaveQuestionAndAnswers(test.Questions[0], ValidAnswerList);
+            TempData["CurrentQ"] = test;
 
                 if (Request.Form.AllKeys.Contains("addquestion"))
                 {
@@ -390,11 +438,11 @@ namespace SmartQA.Controllers
                 }
                 else if (Request.Form.AllKeys.Contains("savequiz"))
                 {
-                    return RedirectToAction("SaveQuiz", "Home", new { @test = test });     
+                    return RedirectToAction("SaveQuiz");     
                 }
 
                 
-            TempData["CurrentQ"] = test;
+            
 
             //return View(test);
             return RedirectToAction("BuildQuiz");
@@ -419,9 +467,84 @@ namespace SmartQA.Controllers
             return View();
         }
 
+        public ActionResult SaveQuiz()
+        {
+            TestModels test = new TestModels();
+
+            if (TempData["CurrentQ"] != null)
+            {
+                test = TempData["CurrentQ"] as TestModels;
+                if (test.Title == null)
+                {
+                    DataAccess dbWork = new DataAccess(connectionString);
+                    test.Title = dbWork.GetTitle(test.ID);
+                }
+            }
+            else
+            {
+                return RedirectToAction("BuildQuiz");
+            }
+
+            return View(test);
+        }
+
+        [HttpPost]
         public ActionResult SaveQuiz(TestModels test)
         {
+            List<BGDocument> bgDocuments = new List<BGDocument>();
+            DataAccess dbWork = new DataAccess(connectionString);
+            string topicName = dbWork.getTopicName(test.TopicID);
+            string path = Path.Combine(Server.MapPath("~/UserFiles/"),User.Identity.GetUserId(), "BackgroundDocuments", topicName);
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (!dir.Exists)
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            for (int i = 0; i < Request.Files.Count; i++)
+            {
+                BGDocument bgDocument = new BGDocument();
+                HttpPostedFileBase hpf = Request.Files[i] as HttpPostedFileBase;
+                bgDocument.TestID = test.ID;
+                bgDocument.TopicID = test.TopicID;
+                bgDocument.AddedByID = User.Identity.GetUserId();
+                if (hpf.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(hpf.FileName);
+                    bgDocument.FileName = hpf.FileName;
+                    bgDocument.Title = fileName;
+
+                    var extension = Path.GetExtension(hpf.FileName);
+                    var onlyFileName = Path.GetFileNameWithoutExtension(hpf.FileName);
+
+                    var newfilename = onlyFileName + "_" + test.ID.ToString() + "_" + test.TopicID.ToString() + extension;
+
+                    var pathDoc = Path.Combine(path, newfilename);
+                    bgDocument.Path = pathDoc;
+
+                    hpf.SaveAs(pathDoc);
+                    bgDocuments.Add(bgDocument);
+                }
+            }
+
+            dbWork.UpdateTestAndSaveBGDoc(bgDocuments, test);
+
             return View(test);
+        }
+        
+        public ActionResult DeleteQuiz(int id)
+        {
+            DataAccess dbWork = new DataAccess(connectionString);
+            dbWork.DeleteObject(id, "Test");
+
+            return RedirectToAction("Recent");
+        }
+        public ActionResult DeleteQuizFromMyQuiz(int id)
+        {
+            DataAccess dbWork = new DataAccess(connectionString);
+            dbWork.DeleteObject(id, "Test");
+
+            return RedirectToAction("PersonalQuizzes");
         }
     }
 }

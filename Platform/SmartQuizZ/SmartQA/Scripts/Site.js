@@ -100,3 +100,24 @@ $(document).ready(function () {
         }
     );
 });
+$(document).ready(function () {
+    var nrOfAnsers = 0;
+    var elem = document.getElementsByClassName("answertextbox");
+    for(var i = 0; i< elem.length;i++) {
+        if (elem[i].nodeValue != "") {
+            nrOfAnsers++;
+        }
+    }
+    if (document.getElementById("quest") != null) {
+        if (document.getElementById("quest").value != "" && nrOfAnsers >= 3) {
+            if (document.getElementById("addquestion") != null) {
+                document.getElementById("addquestion").disabled = false;
+            }
+        }
+        else {
+            if (document.getElementById("addquestion") != null) {
+                document.getElementById("addquestion").disabled = false;
+            }
+        }
+    }
+});

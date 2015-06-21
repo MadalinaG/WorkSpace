@@ -28,30 +28,23 @@
                                     @Html.AntiForgeryToken()
                                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     @Html.Hidden("ID",Model.ID )
-                                    @Html.Hidden("Title", Model.Title)
                                     @Html.Hidden("QuizSaved", Model.QuizSaved)
                                     <div class="panel-heading">
                                         <div class="row">
-                                            @*@if (Model.QuizSaved == false)
-                                            {*@ 
                                             <div class="form-group">
-                                                @*@Html.LabelFor(m => m.Title, new { @class = "col-sm-3 control-label" })*@
-                                                <div class="col-xs-8 col-lg-offset-2">
-                                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control ", @id = "titleQuiz", @tabindex = "1", @placeholder = "Quiz Name", @autocomplete = "off" })
-                                                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
-                                                </div>
+                                                   <div class="col-xs-8 col-lg-offset-2">
+                                                       @if (Model.QuizSaved == false)
+                                                       { 
+                                                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control ", @id = "titleQuiz", @tabindex = "1", @placeholder = "Quiz Name"})
+                                                       }
+                                                       else
+                                                       {
+                                                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control ", @id = "titleQuiz", @tabindex = "1", disabled = "disabled" })
+                                                       }
+                                                           @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                                                </div
+>
                                             </div>
-                                            @*}
-                                            else
-                                            {
-                                                <div class="form-group">
-                                                    Html.LabelFor(m => m.Title, new { @class = "col-sm-3 control-label" })*@
-                                                    @*<div class="col-xs-8 col-lg-offset-2">
-                                                        @Html.TextBoxFor(m => m.Title, new { @class = "form-control ", @id = "titleQuiz", @tabindex = "1", @placeholder = Model.Title, @value = "", @readonly = "readonly" })
-                                                        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
-                                                    </div>
-                                                </div>*@
-                                            @*}**@
                                         </div>
                                         <hr>
                                         @if (0 == @ViewBag.Index && Model.QuizSaved == false)
@@ -110,7 +103,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-2 col-sm-offset-8">
-                                                <input type="submit" name="addquestion" id="topic-submit" tabindex="4" class="form-control btn btn-register addq" value=" Add Question">
+                                                <input type="submit" name="addquestion" id="addquestion" tabindex="4" class="form-control btn btn-register addq" value=" Add Question">
                                             </div>
                                         </div>
                                     </div>
@@ -127,7 +120,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-2 col-sm-offset-5">
-                                                <input type="submit" name="savequiz" id="topic-submit" tabindex="4" class="form-control btn btn-success saveq" value="Next">
+                                                <input type="submit" name="savequiz" id="savequiz" tabindex="4" class="form-control btn btn-success saveq" value="Next">
                                             </div>
                                         </div>
                                     </div>

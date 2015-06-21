@@ -915,7 +915,9 @@ div.input-group-option{
 }
 .dropbuildqu{
        background-color: #ebf3f1;
-    border-radius:10px 10px;
+      -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+      border-radius: 10px;
 }
 .info{
     margin-left:13em;
@@ -984,4 +986,13 @@ div.input-group-option{
     text-align:center;
     color:#fff !important;
     z-index:2;
+}
+
+#addquestion{
+    color: #164137;
+    font-weight: bold;
+}
+
+#myQuiz{
+    margin-left:2em;
 }
