@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://webPosRo.uaic/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="PosTaggerRoWS" targetNamespace="http://webPosRo.uaic/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://nlptools.infoiasi.ro:80/WebPosRo/PosTaggerRoWS?xsd=1" namespace="http://webPosRo.uaic/" />
+    </xsd:schema>
+  </types>
+  <message name="parseText_TXT">
+    <part name="parameters" element="tns:parseText_TXT" />
+  </message>
+  <message name="parseText_TXTResponse">
+    <part name="parameters" element="tns:parseText_TXTResponse" />
+  </message>
+  <message name="parseSentence_TXT">
+    <part name="parameters" element="tns:parseSentence_TXT" />
+  </message>
+  <message name="parseSentence_TXTResponse">
+    <part name="parameters" element="tns:parseSentence_TXTResponse" />
+  </message>
+  <message name="parseText_XML">
+    <part name="parameters" element="tns:parseText_XML" />
+  </message>
+  <message name="parseText_XMLResponse">
+    <part name="parameters" element="tns:parseText_XMLResponse" />
+  </message>
+  <message name="parseSentence_XML">
+    <part name="parameters" element="tns:parseSentence_XML" />
+  </message>
+  <message name="parseSentence_XMLResponse">
+    <part name="parameters" element="tns:parseSentence_XMLResponse" />
+  </message>
+  <portType name="PosTaggerRoWS">
+    <operation name="parseText_TXT">
+      <input wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseText_TXTRequest" message="tns:parseText_TXT" />
+      <output wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseText_TXTResponse" message="tns:parseText_TXTResponse" />
+    </operation>
+    <operation name="parseSentence_TXT">
+      <input wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseSentence_TXTRequest" message="tns:parseSentence_TXT" />
+      <output wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseSentence_TXTResponse" message="tns:parseSentence_TXTResponse" />
+    </operation>
+    <operation name="parseText_XML">
+      <input wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseText_XMLRequest" message="tns:parseText_XML" />
+      <output wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseText_XMLResponse" message="tns:parseText_XMLResponse" />
+    </operation>
+    <operation name="parseSentence_XML">
+      <input wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseSentence_XMLRequest" message="tns:parseSentence_XML" />
+      <output wsam:Action="http://webPosRo.uaic/PosTaggerRoWS/parseSentence_XMLResponse" message="tns:parseSentence_XMLResponse" />
+    </operation>
+  </portType>
+  <binding name="PosTaggerRoWSPortBinding" type="tns:PosTaggerRoWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="parseText_TXT">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="parseSentence_TXT">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="parseText_XML">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="parseSentence_XML">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="PosTaggerRoWS">
+    <port name="PosTaggerRoWSPort" binding="tns:PosTaggerRoWSPortBinding">
+      <soap:address location="http://nlptools.infoiasi.ro:80/WebPosRo/PosTaggerRoWS" />
+    </port>
+  </service>
+</definitions>

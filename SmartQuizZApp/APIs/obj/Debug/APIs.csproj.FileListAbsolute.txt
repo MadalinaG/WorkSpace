@@ -1,0 +1,4 @@
+E:\WorkSpace\SmartQuizZApp\APIs\bin\Debug\APIs.dll
+E:\WorkSpace\SmartQuizZApp\APIs\bin\Debug\APIs.pdb
+E:\WorkSpace\SmartQuizZApp\APIs\obj\Debug\APIs.dll
+E:\WorkSpace\SmartQuizZApp\APIs\obj\Debug\APIs.pdb

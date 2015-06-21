@@ -1,0 +1,107 @@
+﻿@model SmartQuizZN.Models.Test
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Add new quiz";
+}
+@if (Request.IsAuthenticated)
+ {
+<div class="row">
+    <div class="col-lg-push-12">
+        <section id="loginForm">
+            @using (Html.BeginForm("CreateQuiz", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                
+                <h3>Add Quiz Details</h3>
+                 
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="jumbotron">
+                   <p> @ViewData["error"]</p>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Title, new { @class = "form-control input-md titlequiz" })
+                            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="topicselect">Select Topic</label>
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(m => m.TopicID, (SelectList)ViewBag.Topics, new { @class = "form-control topicselect" })
+                        </div>
+                    </div>
+                    <div class="form-group qn">
+                        @Html.LabelFor(m => m.NumberOfAnswerForQuestion, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(m => m.NumberOfAnswerForQuestion, (SelectList)ViewBag.AnswersNumbers, new { @class = "form-control topicselect" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.QuestionsNumber, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.QuestionsNumber, new { @class = "form-control input-md questionnr" })
+                            @Html.ValidationMessageFor(m => m.QuestionsNumber, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.StartReadAtPage, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.StartReadAtPage, new { @class = "form-control input-md startpage" })
+                            @Html.ValidationMessageFor(m => m.StartReadAtPage, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.StopReadAtPage, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.StopReadAtPage, new { @class = "form-control input-md stoppage" })
+                            @Html.ValidationMessageFor(m => m.StopReadAtPage, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MultipleAnswersForOneQuestion, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.CheckBoxFor(m => m.MultipleAnswersForOneQuestion, new { @class = "form-control multipleans" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(m => m.Description, new { rows = 4, cols = 140 })
+                            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.QuizInstructions, new { @class = "col-md-2 control-label" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(m => m.QuizInstructions, new { rows = 4, cols = 140 })
+                            @Html.ValidationMessageFor(m => m.QuizInstructions, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                  
+                    
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="file1">Choose a file:</label>
+                        <input type="file" name="files" id="file1" accept="application/pdf" required />
+                    </div>
+                        <div class="form-group ">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save quiz>>" class="btn btn-primary btn-lg saveQuizButton" />
+                            </div>
+                        </div>
+
+                    </div>
+            }
+
+        </section>
+    </div>
+
+</div>
+}
+else
+{
+    
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+        }

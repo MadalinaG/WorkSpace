@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://parser.discourse.uaic/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="DiscourseParserWS" targetNamespace="http://parser.discourse.uaic/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://nlptools.infoiasi.ro:80/UAIC.DiscourseParser/DiscourseParserWS?xsd=1" namespace="http://parser.discourse.uaic/" />
+    </xsd:schema>
+  </types>
+  <message name="parse">
+    <part name="parameters" element="tns:parse" />
+  </message>
+  <message name="parseResponse">
+    <part name="parameters" element="tns:parseResponse" />
+  </message>
+  <message name="parse_Xml">
+    <part name="parameters" element="tns:parse_Xml" />
+  </message>
+  <message name="parse_XmlResponse">
+    <part name="parameters" element="tns:parse_XmlResponse" />
+  </message>
+  <portType name="DiscourseParserWS">
+    <operation name="parse">
+      <input wsam:Action="http://parser.discourse.uaic/DiscourseParserWS/parseRequest" message="tns:parse" />
+      <output wsam:Action="http://parser.discourse.uaic/DiscourseParserWS/parseResponse" message="tns:parseResponse" />
+    </operation>
+    <operation name="parse_Xml">
+      <input wsam:Action="http://parser.discourse.uaic/DiscourseParserWS/parse_XmlRequest" message="tns:parse_Xml" />
+      <output wsam:Action="http://parser.discourse.uaic/DiscourseParserWS/parse_XmlResponse" message="tns:parse_XmlResponse" />
+    </operation>
+  </portType>
+  <binding name="DiscourseParserWSPortBinding" type="tns:DiscourseParserWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="parse">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="parse_Xml">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="DiscourseParserWS">
+    <port name="DiscourseParserWSPort" binding="tns:DiscourseParserWSPortBinding">
+      <soap:address location="http://nlptools.infoiasi.ro:80/UAIC.DiscourseParser/DiscourseParserWS" />
+    </port>
+  </service>
+</definitions>

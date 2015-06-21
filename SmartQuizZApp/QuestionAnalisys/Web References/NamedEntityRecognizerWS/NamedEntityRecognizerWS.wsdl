@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://recognizer.entity.named.uaic/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="NamedEntityRecognizerWS" targetNamespace="http://recognizer.entity.named.uaic/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://nlptools.infoiasi.ro:80/UAIC.NamedEntityRecognizer/NamedEntityRecognizerWS?xsd=1" namespace="http://recognizer.entity.named.uaic/" />
+    </xsd:schema>
+  </types>
+  <message name="recognizeEntities">
+    <part name="parameters" element="tns:recognizeEntities" />
+  </message>
+  <message name="recognizeEntitiesResponse">
+    <part name="parameters" element="tns:recognizeEntitiesResponse" />
+  </message>
+  <message name="recognizeEntities_XML">
+    <part name="parameters" element="tns:recognizeEntities_XML" />
+  </message>
+  <message name="recognizeEntities_XMLResponse">
+    <part name="parameters" element="tns:recognizeEntities_XMLResponse" />
+  </message>
+  <portType name="NamedEntityRecognizerWS">
+    <operation name="recognizeEntities">
+      <input wsam:Action="http://recognizer.entity.named.uaic/NamedEntityRecognizerWS/recognizeEntitiesRequest" message="tns:recognizeEntities" />
+      <output wsam:Action="http://recognizer.entity.named.uaic/NamedEntityRecognizerWS/recognizeEntitiesResponse" message="tns:recognizeEntitiesResponse" />
+    </operation>
+    <operation name="recognizeEntities_XML">
+      <input wsam:Action="http://recognizer.entity.named.uaic/NamedEntityRecognizerWS/recognizeEntities_XMLRequest" message="tns:recognizeEntities_XML" />
+      <output wsam:Action="http://recognizer.entity.named.uaic/NamedEntityRecognizerWS/recognizeEntities_XMLResponse" message="tns:recognizeEntities_XMLResponse" />
+    </operation>
+  </portType>
+  <binding name="NamedEntityRecognizerWSPortBinding" type="tns:NamedEntityRecognizerWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="recognizeEntities">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="recognizeEntities_XML">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="NamedEntityRecognizerWS">
+    <port name="NamedEntityRecognizerWSPort" binding="tns:NamedEntityRecognizerWSPortBinding">
+      <soap:address location="http://nlptools.infoiasi.ro:80/UAIC.NamedEntityRecognizer/NamedEntityRecognizerWS" />
+    </port>
+  </service>
+</definitions>

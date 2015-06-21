@@ -1,0 +1,148 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartQuizZApp", "SmartQuizZApp\SmartQuizZApp.csproj", "{FD17EC61-449F-45CC-825F-0476E266276D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{CACF1D73-8D5C-4767-8569-102B2992F9A2}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{1D6A5F9A-8F02-4ACD-860C-7CA16723B240}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\SmartQuizZApp-WAWS-dev.json = PublishScripts\Configurations\SmartQuizZApp-WAWS-dev.json
+		PublishScripts\Configurations\SmartQuizZN-WAWS-dev.json = PublishScripts\Configurations\SmartQuizZN-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextProcessing", "TextProcessing\TextProcessing.csproj", "{E7DECBDB-48E7-4723-A528-ED9C65F2FBE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionAnalisys", "QuestionAnalisys\QuestionAnalisys.csproj", "{E64CE8D5-A87E-45D9-A4FA-C2A0F2F9A489}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{BB1154A3-82F2-4169-9D75-A5487BF4E521}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIs", "APIs\APIs.csproj", "{48850933-0CDE-4E75-B5C1-D51CFE59BD79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartQuizZ", "SmartQuizZ\SmartQuizZ.csproj", "{DDC9729D-A640-499C-B79B-277C14093AC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartQuizZN", "SmartQuizZN\SmartQuizZN.csproj", "{B62FB629-9A43-4AE3-A2E8-F6E10B173761}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexerLucene", "ConsoleApplication1\IndexerLucene.csproj", "{D514ED7C-F760-4455-B94B-94C45F0C89D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexingServices", "IndexingServices\IndexingServices.csproj", "{2E7FCBB6-AAFB-4029-94B7-ADEEF3FB875D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{30045210-590C-41B6-B143-87C8C0D9DB5D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeserializeProject", "DeserializeProject\DeserializeProject.csproj", "{91482944-86DE-467B-B80E-BA71BAC45FE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnswerEvaluation", "AnswerEvaluation\AnswerEvaluation.csproj", "{B02EC4ED-FDAB-4FE3-995F-9FF5A6CE901D}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 13
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://madalinachelariu.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = APIs\\APIs.csproj
+		SccProjectName1 = APIs
+		SccLocalPath1 = APIs
+		SccProjectUniqueName2 = QuestionAnalisys\\QuestionAnalisys.csproj
+		SccProjectName2 = QuestionAnalisys
+		SccLocalPath2 = QuestionAnalisys
+		SccProjectUniqueName3 = SmartQuizZApp\\SmartQuizZApp.csproj
+		SccProjectName3 = SmartQuizZApp
+		SccLocalPath3 = SmartQuizZApp
+		SccProjectUniqueName4 = Tests\\Tests.csproj
+		SccProjectName4 = Tests
+		SccLocalPath4 = Tests
+		SccProjectUniqueName5 = TextProcessing\\TextProcessing.csproj
+		SccProjectName5 = TextProcessing
+		SccLocalPath5 = TextProcessing
+		SccProjectUniqueName6 = SmartQuizZ\\SmartQuizZ.csproj
+		SccProjectName6 = SmartQuizZ
+		SccLocalPath6 = SmartQuizZ
+		SccProjectUniqueName7 = SmartQuizZN\\SmartQuizZN.csproj
+		SccProjectName7 = SmartQuizZN
+		SccLocalPath7 = SmartQuizZN
+		SccProjectUniqueName8 = IndexingServices\\IndexingServices.csproj
+		SccProjectName8 = IndexingServices
+		SccLocalPath8 = IndexingServices
+		SccProjectUniqueName9 = ConsoleApplication1\\IndexerLucene.csproj
+		SccProjectName9 = ConsoleApplication1
+		SccLocalPath9 = ConsoleApplication1
+		SccProjectUniqueName10 = TestConsole\\TestConsole.csproj
+		SccProjectName10 = TestConsole
+		SccLocalPath10 = TestConsole
+		SccProjectUniqueName11 = DeserializeProject\\DeserializeProject.csproj
+		SccProjectName11 = DeserializeProject
+		SccLocalPath11 = DeserializeProject
+		SccProjectUniqueName12 = AnswerEvaluation\\AnswerEvaluation.csproj
+		SccProjectName12 = AnswerEvaluation
+		SccLocalPath12 = AnswerEvaluation
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FD17EC61-449F-45CC-825F-0476E266276D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD17EC61-449F-45CC-825F-0476E266276D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD17EC61-449F-45CC-825F-0476E266276D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD17EC61-449F-45CC-825F-0476E266276D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7DECBDB-48E7-4723-A528-ED9C65F2FBE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7DECBDB-48E7-4723-A528-ED9C65F2FBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7DECBDB-48E7-4723-A528-ED9C65F2FBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7DECBDB-48E7-4723-A528-ED9C65F2FBE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E64CE8D5-A87E-45D9-A4FA-C2A0F2F9A489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E64CE8D5-A87E-45D9-A4FA-C2A0F2F9A489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E64CE8D5-A87E-45D9-A4FA-C2A0F2F9A489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E64CE8D5-A87E-45D9-A4FA-C2A0F2F9A489}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB1154A3-82F2-4169-9D75-A5487BF4E521}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB1154A3-82F2-4169-9D75-A5487BF4E521}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB1154A3-82F2-4169-9D75-A5487BF4E521}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB1154A3-82F2-4169-9D75-A5487BF4E521}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48850933-0CDE-4E75-B5C1-D51CFE59BD79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48850933-0CDE-4E75-B5C1-D51CFE59BD79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48850933-0CDE-4E75-B5C1-D51CFE59BD79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48850933-0CDE-4E75-B5C1-D51CFE59BD79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDC9729D-A640-499C-B79B-277C14093AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDC9729D-A640-499C-B79B-277C14093AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDC9729D-A640-499C-B79B-277C14093AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDC9729D-A640-499C-B79B-277C14093AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B62FB629-9A43-4AE3-A2E8-F6E10B173761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B62FB629-9A43-4AE3-A2E8-F6E10B173761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B62FB629-9A43-4AE3-A2E8-F6E10B173761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B62FB629-9A43-4AE3-A2E8-F6E10B173761}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D514ED7C-F760-4455-B94B-94C45F0C89D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D514ED7C-F760-4455-B94B-94C45F0C89D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D514ED7C-F760-4455-B94B-94C45F0C89D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D514ED7C-F760-4455-B94B-94C45F0C89D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E7FCBB6-AAFB-4029-94B7-ADEEF3FB875D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E7FCBB6-AAFB-4029-94B7-ADEEF3FB875D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E7FCBB6-AAFB-4029-94B7-ADEEF3FB875D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E7FCBB6-AAFB-4029-94B7-ADEEF3FB875D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30045210-590C-41B6-B143-87C8C0D9DB5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30045210-590C-41B6-B143-87C8C0D9DB5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30045210-590C-41B6-B143-87C8C0D9DB5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30045210-590C-41B6-B143-87C8C0D9DB5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91482944-86DE-467B-B80E-BA71BAC45FE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91482944-86DE-467B-B80E-BA71BAC45FE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91482944-86DE-467B-B80E-BA71BAC45FE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91482944-86DE-467B-B80E-BA71BAC45FE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02EC4ED-FDAB-4FE3-995F-9FF5A6CE901D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02EC4ED-FDAB-4FE3-995F-9FF5A6CE901D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02EC4ED-FDAB-4FE3-995F-9FF5A6CE901D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02EC4ED-FDAB-4FE3-995F-9FF5A6CE901D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D6A5F9A-8F02-4ACD-860C-7CA16723B240} = {CACF1D73-8D5C-4767-8569-102B2992F9A2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35;packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\TransientFaultHandling.Core.5.0.1118.0\lib\NET35;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.0.1118.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.0.1118.0\DesignTime;packages\TransientFaultHandling.Core.5.1.1209.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1209.0\lib\NET4;packages\EnterpriseLibrary.WindowsAzure.TransientFaultHandling.5.1.1209.0\DesignTime
+	EndGlobalSection
+EndGlobal

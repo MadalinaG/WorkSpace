@@ -1,0 +1,96 @@
+﻿@model  List<SmartQA.Models.TestModels>
+@{
+    ViewBag.Title = "Recent";
+    SmartQA.Models.SortingPagingInfo info = ViewBag.SortingPagingInfo;
+}
+<div class="containerIndex">
+    <div class="row">
+        <div class="panel panel-default widget">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th-list"></span>
+                <h3 class="panel-title">
+                    Recent Quiz Added
+                </h3>
+                <span class="label label-info">
+                    @ViewBag.TestCount
+                </span>
+            </div>
+@using (Html.BeginForm("Recent", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "login-form", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.Hidden("SortField", info.SortField)
+    @Html.Hidden("SortDirection", info.SortDirection)
+    @Html.Hidden("PageCount", info.PageCount)
+    @Html.Hidden("PageSize", info.PageSize)
+    @Html.Hidden("CurrentPageIndex", info.CurrentPageIndex)
+            <div class="panel-body">
+                <ul class="list-group">
+        @foreach (var item in Model)
+            {
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-2 col-md-1">
+                                <img src="~/Content/Images/@item.PathTopicPicture" class="img-circle img-responsive" alt="" />
+                            </div>
+                            <div class="col-xs-10 col-md-11">
+                                <div>
+                                    <a href="#">
+                                        @item.Title
+                                    </a>
+                                    <div class="mic-info">
+                                        By: <a href="#">@item.UserName</a> on @item.AddedTime
+                                    </div>
+                                </div>
+                                <div class="comment-text">
+                                    Topic: @item.TopicName
+                                </div>
+                               @if( ViewBag.userId == item.AddedByID)
+                               { 
+                                <div class="action">
+                                    <button type="button" class="btn btn-primary btn-xs" title="Edit">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-xs" title="Approved">
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" title="Delete">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                               }
+                               else
+                               {
+                                <div class="action">
+                                    <button type="button" class="btn btn-primary btn-xs" title="Edit" disabled>
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-xs" title="Approved" disabled>
+                                        <span class="glyphicon glyphicon-ok"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" title="Delete" disabled>
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                               }
+                            </div>
+                        </div>
+                    </li>
+                    }
+                </ul>
+                <a href="#" id ="butloadmore"class="btn btn-primary btn-sm btn-block loadmore" role="button"><span class="glyphicon glyphicon-refresh"></span> More</a>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        document.getElementById('butloadmore').scrollIntoView();
+        $(".loadmore").click(function (evt) {
+            var pageindex = document.getElementById('CurrentPageIndex').value;
+            $("#CurrentPageIndex").val(Number(pageindex) + 1);
+            evt.preventDefault();
+            $("form").submit();
+        });
+    });
+</script>

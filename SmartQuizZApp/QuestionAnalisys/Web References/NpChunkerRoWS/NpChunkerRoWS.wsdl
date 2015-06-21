@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://webNpChunkerRo.uaic/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="NpChunkerRoWS" targetNamespace="http://webNpChunkerRo.uaic/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://nlptools.infoiasi.ro:80/WebNpChunkerRo/NpChunkerRoWS?xsd=1" namespace="http://webNpChunkerRo.uaic/" />
+    </xsd:schema>
+  </types>
+  <message name="chunkText">
+    <part name="parameters" element="tns:chunkText" />
+  </message>
+  <message name="chunkTextResponse">
+    <part name="parameters" element="tns:chunkTextResponse" />
+  </message>
+  <message name="chunkTaggedText">
+    <part name="parameters" element="tns:chunkTaggedText" />
+  </message>
+  <message name="chunkTaggedTextResponse">
+    <part name="parameters" element="tns:chunkTaggedTextResponse" />
+  </message>
+  <portType name="NpChunkerRoWS">
+    <operation name="chunkText">
+      <input wsam:Action="http://webNpChunkerRo.uaic/NpChunkerRoWS/chunkTextRequest" message="tns:chunkText" />
+      <output wsam:Action="http://webNpChunkerRo.uaic/NpChunkerRoWS/chunkTextResponse" message="tns:chunkTextResponse" />
+    </operation>
+    <operation name="chunkTaggedText">
+      <input wsam:Action="http://webNpChunkerRo.uaic/NpChunkerRoWS/chunkTaggedTextRequest" message="tns:chunkTaggedText" />
+      <output wsam:Action="http://webNpChunkerRo.uaic/NpChunkerRoWS/chunkTaggedTextResponse" message="tns:chunkTaggedTextResponse" />
+    </operation>
+  </portType>
+  <binding name="NpChunkerRoWSPortBinding" type="tns:NpChunkerRoWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="chunkText">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="chunkTaggedText">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="NpChunkerRoWS">
+    <port name="NpChunkerRoWSPort" binding="tns:NpChunkerRoWSPortBinding">
+      <soap:address location="http://nlptools.infoiasi.ro:80/WebNpChunkerRo/NpChunkerRoWS" />
+    </port>
+  </service>
+</definitions>

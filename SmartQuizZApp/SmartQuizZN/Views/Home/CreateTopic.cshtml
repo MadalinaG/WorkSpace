@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNet.Identity
+@model SmartQuizZN.Models.Topic
+@{
+    ViewBag.Title = "CreateTopic";
+}
+
+@if (Request.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-lg-push-12">
+            <section id="createTopicForm">
+                @using (Html.BeginForm("CreateTopic", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="jumbotron newTopic">
+        @foreach (var item in @ViewBag.Topics)
+        { 
+            <input type="hidden" name="topics" class="topics" value="@item.TopicName">
+
+        }
+        <h2 class="addNewTopic"><a href="/Home/CreateTopic">Add new Topic</a></h2>
+        <div class="form-group">
+            @Html.LabelFor(m => m.TopicName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.TopicName, new { @class = "form-control input-md ", id="TopicName" })
+                @Html.ValidationMessageFor(m => m.TopicName, "", new { @class = "text-danger topicName" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Description, new { rows = 7, cols = 140 })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="file1">Choose a file:</label>
+            <input type="file" name="files" id="file1" accept="image/*" required />
+        </div>
+            
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save topic" class="btn btn-primary savetopic" />
+                </div>
+            </div>
+    </div>
+    
+                }
+            </section>
+        </div>
+    </div>
+}
+else
+{
+}

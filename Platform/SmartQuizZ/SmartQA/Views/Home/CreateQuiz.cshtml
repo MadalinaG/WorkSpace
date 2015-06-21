@@ -1,0 +1,200 @@
+﻿@using Microsoft.AspNet.Identity
+@model  SmartQA.Models.TestModels
+@{
+    ViewBag.Title = "CreateTopic";
+}
+@if (Request.IsAuthenticated)
+{
+
+    <div class="containerLogin">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                @Html.ActionLink("Upload Quiz", "CreateQuiz", "Home", null, new { @id = "register-form-link", @class = "active" })
+                            </div>
+                            <div class="col-xs-6">
+                                @Html.ActionLink("Add Topic", "CreateTopic", "Home", null, new { @id = "register-form-link" })
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @using (Html.BeginForm("CreateQuiz", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "login-form", role = "form", enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+                                            <div class="input-group col-lg-5">
+                                                @Html.TextBoxFor(m => m.Title, new { @class = "form-control ", @id = "topName", @tabindex = "1", @placeholder = "Quiz Name", @value = "" })
+                                                @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.QuestionsNumber, new { @class = " col-md-2 control-label" })
+                                <div class="input-group col-lg-3">
+                                    @Html.TextBoxFor(m => m.QuestionsNumber, new { @class = "form-control", @tabindex = "2" })
+                                    @Html.ValidationMessageFor(m => m.QuestionsNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.StartReadAtPage, new { @class = "col-md-2 control-label" })
+                                <div class="input-group col-lg-3">
+                                    @Html.TextBoxFor(m => m.StartReadAtPage, new { @class = "form-control", @tabindex = "3" })
+                                    @Html.ValidationMessageFor(m => m.StartReadAtPage, "", new { @class = "text-danger" })
+                                </div>
+                                </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.StopReadAtPage, new { @class = "col-md-2 control-label" })
+                                <div class="input-group col-lg-3">
+                                    @Html.TextBoxFor(m => m.StopReadAtPage, new { @class = "form-control", @tabindex = "4" })
+                                    @Html.ValidationMessageFor(m => m.StopReadAtPage, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="topicselect">Select Topic</label>
+                <div class="input-group col-lg-3">
+                    @Html.DropDownListFor(m => m.TopicID, (SelectList)ViewBag.Topics, new { @class = "form-control topicselect", @tabindex = "5" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.NumberOfAnswerForQuestion, new { @class = "col-md-2 control-label" })
+                <div class="input-group col-lg-3">
+                    @Html.DropDownListFor(m => m.NumberOfAnswerForQuestion, (SelectList)ViewBag.AnswersNumbers, new { @class = "form-control topicselect", @tabindex = "6" })
+                    @Html.ValidationMessageFor(m => m.NumberOfAnswerForQuestion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            <div class="input-group col-lg-5">
+                @Html.TextAreaFor(m => m.Description, new { rows = "3", cols = "25", @name = "message", @id = "description", @class = "form-control", @tabindex = "8" })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.QuizInstructions, new { @class = "col-md-2 control-label" })
+            <div class="input-group col-lg-5">
+                @Html.TextAreaFor(m => m.QuizInstructions, new { rows = "3", cols = "25", @name = "message", @id = "instruction", @class = "form-control", @tabindex = "9" })
+                @Html.ValidationMessageFor(m => m.QuizInstructions, "", new { @class = "text-danger" })
+            </div>
+        </div>
+                                    
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="topicselect">Select Quiz File</label>
+            <div class="input-group col-lg-5">
+                <input id="file-0a file1" name="files" class="file uploadInput" type="file" data-max-file-count="1" accept="application/pdf" required>
+            </div>
+        </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" for="topicselect">Select Background Files</label>
+        <div class="input-group col-lg-5">
+            <input id="file-0a file1" name="files2" class="file uploadInput" type="file" multiple data-max-file-count="10" accept="application/pdf" required>
+        </div>
+    </div>
+
+        
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <input type="submit" name="login-submit" id="topic-submit" tabindex="4" class="form-control btn btn-register" value="Save Quiz">
+                </div>
+            </div>
+                                }
+        </div>
+                                
+    </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+}
+<script>
+    jQuery(function ($) {
+       
+        $('#file-fr').fileinput({
+            language: 'fr',
+            uploadUrl: '#',
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+        });
+        $('#file-es').fileinput({
+            language: 'es',
+            uploadUrl: '#',
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+        });
+        $("#file-0").fileinput({
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+        });
+        $("#file-1").fileinput({
+            uploadUrl: '#', // you must set a valid URL here else you will get an error
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            overwriteInitial: false,
+            maxFileSize: 1000,
+            maxFilesNum: 10,
+            //allowedFileTypes: ['image', 'video', 'flash'],
+            slugCallback: function (filename) {
+                return filename.replace('(', '_').replace(']', '_');
+            }
+        });
+        /*
+        $(".file").on('fileselect', function(event, n, l) {
+            alert('File Selected. Name: ' + l + ', Num: ' + n);
+        });
+        */
+        $("#file-3").fileinput({
+            showUpload: false,
+            showCaption: false,
+            browseClass: "btn btn-primary btn-lg",
+            fileType: "any",
+            previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+        });
+        $("#file-4").fileinput({
+            uploadExtraData: { kvId: '10' }
+        });
+        $(".btn-warning").on('click', function () {
+            if ($('#file-4').attr('disabled')) {
+                $('#file-4').fileinput('enable');
+            } else {
+                $('#file-4').fileinput('disable');
+            }
+        });
+        $(".btn-info").on('click', function () {
+            $('#file-4').fileinput('refresh', { previewClass: 'bg-info' });
+        });
+        /*
+        $('#file-4').on('fileselectnone', function() {
+            alert('Huh! You selected no files.');
+        });
+        $('#file-4').on('filebrowse', function() {
+            alert('File browse clicked for #file-4');
+        });
+        */
+        $(document).ready(function () {
+            $('.fileinput-upload-button').remove();
+            $("#test-upload").fileinput({
+                'showPreview': false,
+                'allowedFileExtensions': ['jpg', 'png', 'gif'],
+                'elErrorContainer': '#errorBlock'
+            });
+            /*
+            $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
+                alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+            });
+            */
+
+        });
+    });
+</script>
+<link href="~/Content/fileinput.min.css" rel="stylesheet" />
+<script src="~/Scripts/fileinput.min.js"></script>

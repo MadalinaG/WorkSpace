@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://recognizer.entity.named.uaic/" targetNamespace="http://recognizer.entity.named.uaic/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="recognizeEntities" type="tns:recognizeEntities" />
+  <xs:element name="recognizeEntitiesResponse" type="tns:recognizeEntitiesResponse" />
+  <xs:element name="recognizeEntities_XML" type="tns:recognizeEntities_XML" />
+  <xs:element name="recognizeEntities_XMLResponse" type="tns:recognizeEntities_XMLResponse" />
+  <xs:complexType name="recognizeEntities_XML">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="xml" type="xs:string" />
+      <xs:element minOccurs="0" name="language" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="recognizeEntities_XMLResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="recognizeEntities">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="text" type="xs:string" />
+      <xs:element minOccurs="0" name="language" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="recognizeEntitiesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,69 @@
+﻿@model List<SmartQuizZN.Models.Topic>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Exemples by Topic";
+    SmartQuizZN.Models.SortingPagingInfo info = ViewBag.SortingPagingInfo;
+}
+@if (Request.IsAuthenticated)
+ {
+<h2><a href="/Home/Topics" title="Exemples by Topic">@ViewBag.Title</a></h2>
+    <a href="/Home/CreateTopic" class="btn btn-primary btn-lg createtopic"><span class="glyphicon glyphicon-pushpin"></span>@ViewBag.Message</a>
+<div class="topicsContainer">
+    @using (Html.BeginForm("Topics","Home",FormMethod.Post))
+    {
+        @Html.Hidden("SortField", info.SortField)
+        @Html.Hidden("SortDirection", info.SortDirection)
+        @Html.Hidden("PageCount", info.PageCount)
+        @Html.Hidden("PageSize", info.PageSize)
+        @Html.Hidden("CurrentPageIndex", info.CurrentPageIndex)
+    <div class="topicCont">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <a href="/Home/Topic">
+                            <h3 class="panel-title"><span class="category">@item.TopicName</span></h3>
+                        </a>
+                        <span class="badge" title="Quiz numbers">@item.QuizNumber</span>
+                        <span class="glyphicons glyphicons-circle-plus"></span>
+                        <a href="/Home/CreateQuiz"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                    </div>
+                    <div class="panel-body">
+                        <img class="topic" src="~/Content/Images/@item.PhotoName" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="pagin">
+        <nav>
+            <ul class="pagination pagination-lg">
+                <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                @for (var i = 1; i <= info.PageCount; i++)
+                {
+                    if (i == info.CurrentPageIndex)
+                    {
+                        <li class="active"><a href="#" data-pageindex="@i">@(i)<span class="sr-only">(current)</span></a></li>
+
+                    }
+                    else
+                    {
+                        <li><a href="#" class="pager">@(i)</a></li>
+                    }
+                }
+                <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+            </ul>
+        </nav>
+    </div>
+    }
+</div>
+}
+else
+{
+ <div>
+     <p>
+         You need to login first. 
+     </p>
+ </div>
+}

@@ -1,0 +1,81 @@
+﻿@using SmartQA.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+}
+
+@*
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+        </section>
+    </div>
+</div>*@
+<div class="containerLogin">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @Html.ActionLink("Login", "Login", "Account", null, new { @id = "register-form-link", @class = "active" })
+                        </div>
+                        <div class="col-xs-6">
+                            @Html.ActionLink("Register", "Register" ,"Account",null,  new { @id = "register-form-link" })
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "login-form", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" , @id = "username", @tabindex = "1", @placeholder = "Email", @value = "" })
+                                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" , @id = "password", @tabindex = "2", @placeholder = "Password" })
+                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                <div class="form-group text-center">
+                                    @Html.CheckBoxFor(m => m.RememberMe, new  {@id= "remember", @tabindex="3"})
+                                    @Html.LabelFor(m => m.RememberMe)
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Sign In">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", null ,new { @tabindex = "5", @class = "forgot-password" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

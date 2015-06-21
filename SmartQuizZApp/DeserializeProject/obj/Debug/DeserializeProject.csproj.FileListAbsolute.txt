@@ -1,0 +1,8 @@
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\bin\Debug\DeserializeProject.exe.config
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\bin\Debug\DeserializeProject.exe
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\bin\Debug\DeserializeProject.pdb
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\bin\Debug\Newtonsoft.Json.dll
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\bin\Debug\Newtonsoft.Json.xml
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\obj\Debug\DeserializeProject.exe
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\obj\Debug\DeserializeProject.pdb
+E:\WorkSpace\SmartQuizZApp\DeserializeProject\obj\Debug\DeserializeProject.csprojResolveAssemblyReference.cache

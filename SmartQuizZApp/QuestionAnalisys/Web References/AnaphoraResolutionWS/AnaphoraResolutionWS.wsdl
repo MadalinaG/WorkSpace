@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:tns="http://resolution.anaphora.uaic/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" name="AnaphoraResolutionWS" targetNamespace="http://resolution.anaphora.uaic/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="http://nlptools.infoiasi.ro:80/UAIC.AnaphoraResolution/AnaphoraResolutionWS?xsd=1" namespace="http://resolution.anaphora.uaic/" />
+    </xsd:schema>
+  </types>
+  <message name="solveLinks">
+    <part name="parameters" element="tns:solveLinks" />
+  </message>
+  <message name="solveLinksResponse">
+    <part name="parameters" element="tns:solveLinksResponse" />
+  </message>
+  <message name="solveLinks_XML">
+    <part name="parameters" element="tns:solveLinks_XML" />
+  </message>
+  <message name="solveLinks_XMLResponse">
+    <part name="parameters" element="tns:solveLinks_XMLResponse" />
+  </message>
+  <portType name="AnaphoraResolutionWS">
+    <operation name="solveLinks">
+      <input wsam:Action="http://resolution.anaphora.uaic/AnaphoraResolutionWS/solveLinksRequest" message="tns:solveLinks" />
+      <output wsam:Action="http://resolution.anaphora.uaic/AnaphoraResolutionWS/solveLinksResponse" message="tns:solveLinksResponse" />
+    </operation>
+    <operation name="solveLinks_XML">
+      <input wsam:Action="http://resolution.anaphora.uaic/AnaphoraResolutionWS/solveLinks_XMLRequest" message="tns:solveLinks_XML" />
+      <output wsam:Action="http://resolution.anaphora.uaic/AnaphoraResolutionWS/solveLinks_XMLResponse" message="tns:solveLinks_XMLResponse" />
+    </operation>
+  </portType>
+  <binding name="AnaphoraResolutionWSPortBinding" type="tns:AnaphoraResolutionWS">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="solveLinks">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="solveLinks_XML">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="AnaphoraResolutionWS">
+    <port name="AnaphoraResolutionWSPort" binding="tns:AnaphoraResolutionWSPortBinding">
+      <soap:address location="http://nlptools.infoiasi.ro:80/UAIC.AnaphoraResolution/AnaphoraResolutionWS" />
+    </port>
+  </service>
+</definitions>

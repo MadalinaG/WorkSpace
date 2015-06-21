@@ -1,0 +1,81 @@
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartQuzZ</title>
+    @Styles.Render("~/Content/css")
+    <script src="~/Scripts/dropzone.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.2.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/jquery-ui.css" />
+  
+    @Scripts.Render("~/bundles/modernizr")>
+
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("SmartQuizZ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+        @if (Request.IsAuthenticated)
+        {
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="true">Topics<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            <li>@Html.ActionLink("All Topics", "Topics", "Home")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Add new Topic", "CreateTopic", "Home")</li>
+                            
+                            
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="themes" aria-expanded="true">Quizzes<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="themes">
+                            <li>@Html.ActionLink("My quizzes", "Topics", "Home")</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Add new Quiz", "CreateQuiz", "Home")</li>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+        }
+        else
+        {
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+
+        }
+                @Html.Partial("_LoginPartial")
+</div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - SmartQuizZ</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="@Url.Content("/Scripts/Site.js")"></script>
+    <script type="text/javascript" src="@Url.Content("/Scripts/jquery-ui-1.11.2.js")"></script>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>

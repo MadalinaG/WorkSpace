@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNet.Identity
+@model  List<SmartQA.Models.TopicModels>
+@{
+    ViewBag.Title = "Exemples by Topic";
+    SmartQA.Models.SortingPagingInfo info = ViewBag.SortingPagingInfo;
+}@if (Request.IsAuthenticated)
+{
+     
+    <h2><a href="/Home/Topics" title="Exemples by Topic">@ViewBag.Title</a></h2>
+    <a href="/Home/CreateTopic" class="btn btn-primary btn-lg createtopic"><span class="addTopic glyphicon glyphicon-plus-sign"></span>@ViewBag.Message</a>
+    <div class="topicsContainer">
+        @using (Html.BeginForm("Topics", "Home", FormMethod.Post))
+        {
+            @Html.Hidden("SortField", info.SortField)
+            @Html.Hidden("SortDirection", info.SortDirection)
+            @Html.Hidden("PageCount", info.PageCount)
+            @Html.Hidden("PageSize", info.PageSize)
+            @Html.Hidden("CurrentPageIndex", info.CurrentPageIndex)
+            <div class="topicCont row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-3">
+                        <div class="panel panel-success top">
+                            <div class="panel-heading header">
+                                <a href="/Home/Topic">
+                                    <h3 class="panel-title"><span class="category">@item.TopicName</span></h3>
+                                </a>
+                                        <span class="badge" title="Quiz numbers">@item.QuizNumber</span>
+                                        <a href=@Url.Action("EditTopic", "Home", new { TopicName = item.TopicName })><span class="glyphicon glyphicon-edit editTopicButton" title="Edit"></span></a>
+                                        <a href=@Url.Action("CreateQuiz", "Home", new { TopicName = item.TopicName })><span class="glyphicon glyphicon-plus-sign addquiztopic" title="Add quiz in this topic"></span></a>
+                                        @if (ViewBag.UserId == item.AddedBy && item.QuizNumber == 0) {
+                                            <a href=@Url.Action("DeleteTopic", "Home", new { topicId = item.ID })><span class="glyphicon glyphicon-remove deletetopic" title="Remove topic"></span></a>
+                                }
+                                    </div>
+                            <div class="panel-body thumbnailBIO">
+                                <div class="caption">
+                                    <h4>Description</h4>
+                                    <p>@item.Description</p>
+                                </div>
+                                <img class="topic" src="~/Content/Images/@item.PhotoName" />
+                            </div>
+                                </div>
+                            </div>
+                }
+            </div>
+            <div class="pagin col-lg-offset-4">
+                <nav>
+                    <ul class="pagination pagination-lg">
+                        <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                        @for (var i = 1; i <= info.PageCount; i++)
+                        {
+                            if (i == info.CurrentPageIndex)
+                            {
+                                <li class="active"><a href="#" data-pageindex="@i">@(i)<span class="sr-only">(current)</span></a></li>
+
+                            }
+                            else
+                            {
+                                <li><a href="#" class="pager">@(i)</a></li>
+                            }
+                        }
+                        <li class="disabled"><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div>
+        <p>
+            You need to login first.
+        </p>
+    </div>
+}
+

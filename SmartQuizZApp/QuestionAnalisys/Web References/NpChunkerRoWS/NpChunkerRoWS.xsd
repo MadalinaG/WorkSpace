@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://webNpChunkerRo.uaic/" targetNamespace="http://webNpChunkerRo.uaic/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="chunkTaggedText" type="tns:chunkTaggedText" />
+  <xs:element name="chunkTaggedTextResponse" type="tns:chunkTaggedTextResponse" />
+  <xs:element name="chunkText" type="tns:chunkText" />
+  <xs:element name="chunkTextResponse" type="tns:chunkTextResponse" />
+  <xs:complexType name="chunkTaggedText">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="taggedXml" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chunkTaggedTextResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chunkText">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="inputText" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="chunkTextResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

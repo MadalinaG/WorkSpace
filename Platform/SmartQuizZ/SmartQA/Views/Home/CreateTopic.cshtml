@@ -1,0 +1,154 @@
+﻿@using Microsoft.AspNet.Identity
+@model  SmartQA.Models.TopicModels
+@{
+    ViewBag.Title = "CreateTopic";
+}
+@if (Request.IsAuthenticated)
+ {
+
+<div class="containerLogin">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @Html.ActionLink("Add Topic", "CreateTopic", "Home", null, new { @id = "register-form-link", @class = "active" })
+                        </div>
+                        <div class="col-xs-6">
+                            @Html.ActionLink("Upload Quiz", "CreateQuiz", "Home", null, new { @id = "register-form-link" })
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            @using (Html.BeginForm("CreateTopic", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "login-form", role = "form", enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                foreach (var item in @ViewBag.Topics)
+                                {
+                                    <input type="hidden" name="topics" class="topics" value="@item.TopicName">
+
+                                }
+
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.TopicName, new { @class = "col-md-2 control-label" })
+                                    <div class="input-group col-lg-8">
+                                        @Html.TextBoxFor(m => m.TopicName, new { @class = "form-control ", @id = "topName", @tabindex = "1", @placeholder = "Topic", @value = "" })
+                                        @Html.ValidationMessageFor(m => m.TopicName, "", new { @class = "text-danger topicName" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                                    <div class="input-group col-lg-8">
+                                        @Html.TextAreaFor(m => m.Description, new { rows = "9", cols = "65", @name = "message", @id = "message", @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                           
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.PhotoName, new { @class = "col-md-2 control-label" })
+                                    <div class="input-group col-lg-8">
+                                        <input id="file-0a file1" name="files" class="file uploadInput" type="file" data-max-file-count="1" accept="image/*" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4 col-sm-offset-7">
+                                            <input type="submit" name="login-submit" id="topic-submit" tabindex="4" class="form-control btn btn-register" value="Save Topic">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                                </div>
+                            </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
+<script>
+    jQuery(function ($) {
+  
+    $('#file-fr').fileinput({
+        language: 'fr',
+        uploadUrl: '#',
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+    });
+    $('#file-es').fileinput({
+        language: 'es',
+        uploadUrl: '#',
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+    });
+    $("#file-0").fileinput({
+        'allowedFileExtensions': ['jpg', 'png', 'gif'],
+    });
+    $("#file-1").fileinput({
+        uploadUrl: '#', // you must set a valid URL here else you will get an error
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        overwriteInitial: false,
+        maxFileSize: 1000,
+        maxFilesNum: 10,
+        //allowedFileTypes: ['image', 'video', 'flash'],
+        slugCallback: function (filename) {
+            return filename.replace('(', '_').replace(']', '_');
+        }
+    });
+    /*
+    $(".file").on('fileselect', function(event, n, l) {
+        alert('File Selected. Name: ' + l + ', Num: ' + n);
+    });
+    */
+    $("#file-3").fileinput({
+        showUpload: false,
+        showCaption: false,
+        browseClass: "btn btn-primary btn-lg",
+        fileType: "any",
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+    });
+    $("#file-4").fileinput({
+        uploadExtraData: { kvId: '10' }
+    });
+    $(".btn-warning").on('click', function () {
+        if ($('#file-4').attr('disabled')) {
+            $('#file-4').fileinput('enable');
+        } else {
+            $('#file-4').fileinput('disable');
+        }
+    });
+    $(".btn-info").on('click', function () {
+        $('#file-4').fileinput('refresh', { previewClass: 'bg-info' });
+    });
+    /*
+    $('#file-4').on('fileselectnone', function() {
+        alert('Huh! You selected no files.');
+    });
+    $('#file-4').on('filebrowse', function() {
+        alert('File browse clicked for #file-4');
+    });
+    */
+    $(document).ready(function () {
+        $('.fileinput-upload-button').remove();
+        $("#test-upload").fileinput({
+            'showPreview': false,
+            'allowedFileExtensions': ['jpg', 'png', 'gif'],
+            'elErrorContainer': '#errorBlock'
+        });
+        /*
+        $("#test-upload").on('fileloaded', function(event, file, previewId, index) {
+            alert('i = ' + index + ', id = ' + previewId + ', file = ' + file.name);
+        });
+        */
+        
+    });
+    });
+</script>
+<link href="~/Content/fileinput.min.css" rel="stylesheet" />
+<script src="~/Scripts/fileinput.min.js"></script>
+<script src="~/Scripts/Upload.js"></script>

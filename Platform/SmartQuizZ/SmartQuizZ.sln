@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PublishScripts", "PublishScripts", "{27212EBE-9578-4EE4-8140-9DFB6D2118F1}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\AzureWebsitePublishModule.psm1 = PublishScripts\AzureWebsitePublishModule.psm1
+		PublishScripts\Publish-WebApplicationWebsite.ps1 = PublishScripts\Publish-WebApplicationWebsite.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configurations", "Configurations", "{1B93714C-A5B8-433A-B2FD-831E98FD3D66}"
+	ProjectSection(SolutionItems) = preProject
+		PublishScripts\Configurations\SmartQA-WAWS-dev.json = PublishScripts\Configurations\SmartQA-WAWS-dev.json
+		PublishScripts\Configurations\SmartQuizZ-WAWS-dev.json = PublishScripts\Configurations\SmartQuizZ-WAWS-dev.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartQA", "SmartQA\SmartQA.csproj", "{BE473909-B0E9-4B5A-A809-7A4531B0FF6F}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://madalinachelariu.visualstudio.com/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = SmartQA\\SmartQA.csproj
+		SccProjectName1 = SmartQA
+		SccLocalPath1 = SmartQA
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE473909-B0E9-4B5A-A809-7A4531B0FF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE473909-B0E9-4B5A-A809-7A4531B0FF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE473909-B0E9-4B5A-A809-7A4531B0FF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE473909-B0E9-4B5A-A809-7A4531B0FF6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1B93714C-A5B8-433A-B2FD-831E98FD3D66} = {27212EBE-9578-4EE4-8140-9DFB6D2118F1}
+	EndGlobalSection
+EndGlobal

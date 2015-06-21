@@ -1,0 +1,1117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B62FB629-9A43-4AE3-A2E8-F6E10B173761}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartQuizZN</RootNamespace>
+    <AssemblyName>SmartQuizZN</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.0\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.1.8.0.0\lib\net35-full\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\GetDatasDB.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnswersType.cs" />
+    <Compile Include="Models\BackgroundDocument.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\QuestionModels.cs" />
+    <Compile Include="Models\SortingPagingInfo.cs" />
+    <Compile Include="Models\Test.cs" />
+    <Compile Include="Models\Topic.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\demo.css" />
+    <Content Include="Content\fileinput.css" />
+    <Content Include="Content\fileinput.min.css" />
+    <Content Include="Content\fonts\BebasNeue-webfont.svg" />
+    <Content Include="Content\fonts\Dharma Type Font License.txt" />
+    <Content Include="Content\Images\account-settings_1.png" />
+    <Content Include="Content\Images\article.png" />
+    <Content Include="Content\Images\art_1.png" />
+    <Content Include="Content\Images\Biology_1.png" />
+    <Content Include="Content\Images\biology_2.png" />
+    <Content Include="Content\Images\Blue-Utilities-icon.png" />
+    <Content Include="Content\Images\chimie_1.png" />
+    <Content Include="Content\Images\configure.png" />
+    <Content Include="Content\Images\download %281%29.png" />
+    <Content Include="Content\Images\download %282%29.png" />
+    <Content Include="Content\Images\download %283%29.png" />
+    <Content Include="Content\Images\download %284%29.png" />
+    <Content Include="Content\Images\download %285%29.png" />
+    <Content Include="Content\Images\download %286%29.png" />
+    <Content Include="Content\Images\download %287%29.png" />
+    <Content Include="Content\Images\download %288%29.png" />
+    <Content Include="Content\Images\download_1.png" />
+    <Content Include="Content\Images\economy_1.png" />
+    <Content Include="Content\Images\geography_1.png" />
+    <Content Include="Content\Images\history_1.png" />
+    <Content Include="Content\Images\history_2.png" />
+    <Content Include="Content\Images\Icon-pdf-variant2-1024.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-1-glass.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-10-magic.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-100-vector-path-all.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-101-font.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-102-italic.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-103-bold.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-104-text-underline.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-105-text-strike.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-106-text-height.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-107-text-width.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-108-text-resize.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-109-left-indent.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-11-envelope.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-110-right-indent.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-111-align-left.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-112-align-center.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-113-align-right.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-114-justify.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-115-list.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-116-text-smaller.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-117-text-bigger.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-118-embed.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-119-embed-close.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-12-camera.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-120-table.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-121-message-full.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-122-message-empty.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-123-message-in.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-124-message-out.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-125-message-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-126-message-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-127-message-ban.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-128-message-flag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-129-message-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-13-heart.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-130-message-new.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-131-inbox.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-132-inbox-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-133-inbox-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-134-inbox-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-135-inbox-in.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-136-inbox-out.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-137-cogwheel.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-138-cogwheels.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-139-picture.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-14-beach-umbrella.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-140-adjust-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-141-database-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-142-database-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-143-database-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-144-database-ban.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-145-folder-open.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-146-folder-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-147-folder-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-148-folder-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-149-folder-flag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-15-train.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-150-folder-new.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-151-edit.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-152-new-window.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-153-check.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-154-unchecked.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-155-more-windows.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-156-show-big-thumbnails.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-157-show-thumbnails.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-158-show-thumbnails-with-lines.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-159-show-lines.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-16-print.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-160-playlist.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-161-imac.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-162-macbook.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-163-ipad.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-164-iphone.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-165-iphone-transfer.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-166-iphone-exchange.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-167-ipod.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-168-ipod-shuffle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-169-ear-plugs.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-17-bin.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-170-record.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-171-step-backward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-172-fast-backward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-173-rewind.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-174-play.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-175-pause.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-176-stop.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-177-forward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-178-fast-forward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-179-step-forward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-18-music.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-180-eject.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-181-facetime-video.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-182-download-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-183-mute.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-184-volume-down.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-185-volume-up.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-186-screenshot.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-187-move.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-188-more.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-189-brightness-reduce.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-19-note.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-190-brightness-increase.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-191-circle-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-192-circle-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-193-circle-remove.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-194-circle-ok.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-195-circle-question-mark.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-196-circle-info.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-197-circle-exclamation-mark.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-198-remove.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-199-ok.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-2-leaf.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-20-heart-empty.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-200-ban.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-201-download.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-202-upload.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-203-shopping-cart.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-204-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-205-unlock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-206-electricity.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-207-ok-2.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-208-remove-2.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-209-cart-out.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-21-home.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-210-cart-in.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-211-left-arrow.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-212-right-arrow.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-213-down-arrow.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-214-up-arrow.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-215-resize-small.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-216-resize-full.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-217-circle-arrow-left.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-218-circle-arrow-right.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-219-circle-arrow-top.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-22-snowflake.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-220-circle-arrow-down.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-221-play-button.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-222-unshare.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-223-share.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-224-chevron-right.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-225-chevron-left.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-226-bluetooth.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-227-euro.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-228-usd.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-229-gbp.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-23-fire.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-230-retweet-2.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-231-moon.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-232-sun.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-233-cloud.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-234-direction.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-235-brush.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-236-pen.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-237-zoom-in.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-238-zoom-out.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-239-pin.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-24-magnet.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-240-albums.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-241-rotation-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-242-flash.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-243-google-maps.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-244-anchor.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-245-conversation.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-246-chat.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-247-male.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-248-female.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-249-asterisk.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-25-parents.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-250-divide.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-251-snorkel-diving.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-252-scuba-diving.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-253-oxygen-bottle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-254-fins.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-255-fishes.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-256-boat.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-257-delete.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-258-sheriffs-star.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-259-qrcode.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-26-binoculars.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-260-barcode.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-261-pool.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-262-buoy.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-263-spade.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-264-bank.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-265-vcard.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-266-electrical-plug.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-267-flag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-268-credit-card.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-269-keyboard-wireless.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-27-road.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-270-keyboard-wired.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-271-shield.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-272-ring.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-273-cake.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-274-drink.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-275-beer.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-276-fast-food.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-277-cutlery.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-278-pizza.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-279-birthday-cake.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-28-search.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-280-tablet.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-281-settings.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-282-bullets.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-283-cardio.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-284-t-shirt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-285-pants.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-286-sweater.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-287-fabric.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-288-leather.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-289-scissors.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-29-cars.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-290-bomb.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-291-skull.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-292-celebration.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-293-tea-kettle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-294-french-press.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-295-coffee-cup.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-296-pot.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-297-grater.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-298-kettle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-299-hospital.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-3-dog.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-30-notes-2.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-300-hospital-h.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-301-microphone.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-302-webcam.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-303-temple-christianity-church.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-304-temple-islam.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-305-temple-hindu.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-306-temple-buddhist.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-307-bicycle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-308-life-preserver.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-309-share-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-31-pencil.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-310-comments.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-311-flower.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-312-baseball.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-313-rugby.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-314-ax.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-315-table-tennis.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-316-bowling.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-317-tree-conifer.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-318-tree-deciduous.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-319-more-items.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-32-bus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-320-sort.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-321-filter.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-322-gamepad.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-323-playing-dices.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-324-calculator.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-325-tie.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-326-wallet.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-327-piano.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-328-sampler.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-329-podium.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-33-wifi-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-330-soccer-ball.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-331-blog.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-332-dashboard.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-333-certificate.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-334-bell.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-335-candle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-336-pushpin.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-337-iphone-shake.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-338-pin-flag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-339-turtle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-34-luggage.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-340-rabbit.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-341-globe.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-342-briefcase.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-343-hdd.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-344-thumbs-up.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-345-thumbs-down.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-346-hand-right.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-347-hand-left.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-348-hand-up.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-349-hand-down.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-35-old-man.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-350-fullscreen.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-351-shopping-bag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-352-book-open.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-353-nameplate.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-354-nameplate-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-355-vases.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-356-bullhorn.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-357-dumbbell.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-358-suitcase.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-359-file-import.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-36-woman.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-360-file-export.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-361-bug.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-362-crown.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-363-smoking.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-364-cloud-download.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-365-cloud-upload.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-366-restart.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-367-security-camera.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-368-expand.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-369-collapse.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-37-file.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-370-collapse-top.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-371-globe-af.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-372-global.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-373-spray.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-374-nails.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-375-claw-hammer.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-376-classic-hammer.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-377-hand-saw.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-378-riflescope.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-379-electrical-socket-eu.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-38-coins.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-380-electrical-socket-us.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-381-message-forward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-382-coat-hanger.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-383-dress.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-384-bathrobe.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-385-shirt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-386-underwear.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-387-log-in.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-388-log-out.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-389-exit.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-39-airplane.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-390-new-window-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-391-video-sd.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-392-video-hd.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-393-subtitles.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-394-sound-stereo.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-395-sound-dolby.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-396-sound-5-1.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-397-sound-6-1.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-398-sound-7-1.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-399-copyright-mark.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-4-user.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-40-notes.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-400-registration-mark.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-401-radar.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-402-skateboard.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-403-golf-course.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-404-sorting.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-405-sort-by-alphabet.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-406-sort-by-alphabet-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-407-sort-by-order.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-408-sort-by-order-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-409-sort-by-attributes.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-41-stats.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-410-sort-by-attributes-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-411-compressed.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-412-package.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-413-cloud-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-414-cloud-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-415-disk-save.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-416-disk-open.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-417-disk-saved.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-418-disk-remove.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-419-disk-import.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-42-charts.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-420-disk-export.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-421-tower.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-422-send.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-423-git-branch.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-424-git-create.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-425-git-private.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-426-git-delete.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-427-git-merge.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-428-git-pull-request.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-429-git-compare.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-43-pie-chart.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-430-git-commit.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-431-construction-cone.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-432-shoe-steps.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-433-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-434-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-435-redo.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-436-undo.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-437-golf.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-438-hockey.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-439-pipe.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-44-group.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-440-wrench.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-441-folder-closed.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-442-phone-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-443-earphone.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-444-floppy-disk.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-445-floppy-saved.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-446-floppy-remove.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-447-floppy-save.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-448-floppy-open.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-449-translate.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-45-keys.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-450-fax.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-451-factory.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-452-shop-window.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-453-shop.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-454-kiosk.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-455-kiosk-wheels.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-456-kiosk-light.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-457-kiosk-food.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-458-transfer.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-459-money.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-46-calendar.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-460-header.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-461-blacksmith.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-462-saw-blade.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-463-basketball.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-464-server.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-465-server-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-466-server-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-467-server-ban.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-468-server-flag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-469-server-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-47-router.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-470-server-new.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-471-elec-station.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-472-gas-station.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-473-target.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-474-bed-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-475-mosquito-net.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-476-dining-set.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-477-plate-of-food.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-478-hygiene-kit.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-479-blackboard.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-48-camera-small.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-480-marriage.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-481-bucket.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-482-none-color-swatch.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-483-bring-forward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-484-bring-to-front.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-485-send-backward.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-486-send-to-back.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-487-fit-frame-to-image.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-488-fit-image-to-frame.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-489-multiple-displays.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-49-star-empty.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-490-handshake.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-491-child.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-492-baby-formula.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-493-medicine.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-494-atv-vehicle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-495-motorcycle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-496-bed.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-497-tent.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-498-glasses.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-499-sunglasses.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-5-girl.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-50-star.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-500-family.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-501-education.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-502-shoes.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-503-map.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-504-cd.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-505-alert.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-506-piggy-bank.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-507-star-half.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-508-cluster.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-509-flowchart.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-51-link.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-510-commodities.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-511-duplicate.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-512-copy.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-513-paste.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-514-bath-bathtub.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-515-bath-shower.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-516-shower.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-517-menu-hamburger.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-518-option-vertical.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-519-option-horizontal.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-52-eye-open.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-520-currency-conversion.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-521-user-ban.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-522-user-lock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-523-user-flag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-524-user-asterisk.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-525-user-alert.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-526-user-key.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-527-user-conversation.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-528-database.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-529-database-search.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-53-eye-close.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-530-list-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-531-hazard-sign.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-532-hazard.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-533-stop-sign.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-534-lab.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-535-lab-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-536-ice-cream.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-537-ice-lolly.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-538-ice-lolly-tasted.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-539-invoice.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-54-alarm.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-540-cart-tick.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-541-hourglass.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-542-cat.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-543-lamp.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-544-scale-classic.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-545-eye-plus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-546-eye-minus.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-547-quote.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-548-bitcoin.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-549-yen.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-55-clock.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-550-ruble.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-551-erase.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-552-podcast.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-553-firework.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-554-scale.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-555-king.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-556-queen.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-557-pawn.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-558-bishop.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-559-knight.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-56-stopwatch.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-560-mic-mute.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-561-voicemail.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-562-paragraph.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-563-person-walking.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-564-person-wheelchair.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-565-underground.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-566-car-hov.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-567-car-rental.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-568-transport.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-569-taxi.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-57-projector.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-570-ice-cream-no.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-571-uk-rat-u.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-572-uk-rat-pg.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-573-uk-rat-12a.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-574-uk-rat-12.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-575-uk-rat-15.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-576-uk-rat-18.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-577-uk-rat-r18.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-578-tv.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-579-sms.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-58-history.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-580-mms.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-581-us-rat-g.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-582-us-rat-pg.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-583-us-rat-pg-13.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-584-us-rat-restricted.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-585-us-rat-no-one-17.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-586-equalizer.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-587-speakers.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-588-remote-control.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-589-remote-control-tv.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-59-truck.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-590-shredder.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-591-folder-heart.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-592-person-running.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-593-person.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-594-voice.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-595-stethoscope.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-596-hotspot.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-597-activity.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-598-watch.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-599-scissors-alt.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-6-car.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-60-cargo.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-600-car-wheel.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-601-chevron-up.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-602-chevron-down.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-603-superscript.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-604-subscript.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-605-text-size.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-606-text-color.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-607-text-background.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-608-modal-window.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-609-newspaper.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-61-compass.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-610-tractor.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-62-keynote.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-63-paperclip.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-64-power.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-65-lightbulb.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-66-tag.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-67-tags.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-68-cleaning.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-69-ruler.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-7-user-add.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-70-gift.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-71-umbrella.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-72-book.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-73-bookmark.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-74-wifi.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-75-cup.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-76-stroller.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-77-headphones.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-78-headset.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-79-warning-sign.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-8-user-remove.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-80-signal.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-81-retweet.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-82-refresh.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-83-roundabout.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-84-random.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-85-heat.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-86-repeat.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-87-display.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-88-log-book.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-89-address-book.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-9-film.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-90-building.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-91-eyedropper.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-92-adjust.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-93-tint.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-94-crop.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-95-vector-path-square.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-96-vector-path-circle.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-97-vector-path-polygon.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-98-vector-path-line.png" />
+    <Content Include="Content\Images\IconSet\glyphicons-99-vector-path-curve.png" />
+    <Content Include="Content\Images\IconSet\social-1-pinterest.png" />
+    <Content Include="Content\Images\IconSet\social-10-wordpress.png" />
+    <Content Include="Content\Images\IconSet\social-11-instapaper.png" />
+    <Content Include="Content\Images\IconSet\social-12-evernote.png" />
+    <Content Include="Content\Images\IconSet\social-13-xing.png" />
+    <Content Include="Content\Images\IconSet\social-14-zootool.png" />
+    <Content Include="Content\Images\IconSet\social-15-dribbble.png" />
+    <Content Include="Content\Images\IconSet\social-16-deviantart.png" />
+    <Content Include="Content\Images\IconSet\social-17-read-it-later.png" />
+    <Content Include="Content\Images\IconSet\social-18-linked-in.png" />
+    <Content Include="Content\Images\IconSet\social-19-forrst.png" />
+    <Content Include="Content\Images\IconSet\social-2-dropbox.png" />
+    <Content Include="Content\Images\IconSet\social-20-pinboard.png" />
+    <Content Include="Content\Images\IconSet\social-21-behance.png" />
+    <Content Include="Content\Images\IconSet\social-22-github.png" />
+    <Content Include="Content\Images\IconSet\social-23-youtube.png" />
+    <Content Include="Content\Images\IconSet\social-24-skitch.png" />
+    <Content Include="Content\Images\IconSet\social-25-foursquare.png" />
+    <Content Include="Content\Images\IconSet\social-26-quora.png" />
+    <Content Include="Content\Images\IconSet\social-27-badoo.png" />
+    <Content Include="Content\Images\IconSet\social-28-spotify.png" />
+    <Content Include="Content\Images\IconSet\social-29-stumbleupon.png" />
+    <Content Include="Content\Images\IconSet\social-3-google-plus.png" />
+    <Content Include="Content\Images\IconSet\social-30-readability.png" />
+    <Content Include="Content\Images\IconSet\social-31-facebook.png" />
+    <Content Include="Content\Images\IconSet\social-32-twitter.png" />
+    <Content Include="Content\Images\IconSet\social-33-instagram.png" />
+    <Content Include="Content\Images\IconSet\social-34-posterous-spaces.png" />
+    <Content Include="Content\Images\IconSet\social-35-vimeo.png" />
+    <Content Include="Content\Images\IconSet\social-36-flickr.png" />
+    <Content Include="Content\Images\IconSet\social-37-last-fm.png" />
+    <Content Include="Content\Images\IconSet\social-38-rss.png" />
+    <Content Include="Content\Images\IconSet\social-39-skype.png" />
+    <Content Include="Content\Images\IconSet\social-4-jolicloud.png" />
+    <Content Include="Content\Images\IconSet\social-40-e-mail.png" />
+    <Content Include="Content\Images\IconSet\social-41-vine.png" />
+    <Content Include="Content\Images\IconSet\social-42-myspace.png" />
+    <Content Include="Content\Images\IconSet\social-43-goodreads.png" />
+    <Content Include="Content\Images\IconSet\social-44-apple.png" />
+    <Content Include="Content\Images\IconSet\social-45-windows.png" />
+    <Content Include="Content\Images\IconSet\social-46-yelp.png" />
+    <Content Include="Content\Images\IconSet\social-47-playstation.png" />
+    <Content Include="Content\Images\IconSet\social-48-xbox.png" />
+    <Content Include="Content\Images\IconSet\social-49-android.png" />
+    <Content Include="Content\Images\IconSet\social-5-yahoo.png" />
+    <Content Include="Content\Images\IconSet\social-50-ios.png" />
+    <Content Include="Content\Images\IconSet\social-51-wikipedia.png" />
+    <Content Include="Content\Images\IconSet\social-52-pocket.png" />
+    <Content Include="Content\Images\IconSet\social-53-steam.png" />
+    <Content Include="Content\Images\IconSet\social-54-souncloud.png" />
+    <Content Include="Content\Images\IconSet\social-55-slideshare.png" />
+    <Content Include="Content\Images\IconSet\social-56-netflix.png" />
+    <Content Include="Content\Images\IconSet\social-57-paypal.png" />
+    <Content Include="Content\Images\IconSet\social-58-google-drive.png" />
+    <Content Include="Content\Images\IconSet\social-59-linux-foundation.png" />
+    <Content Include="Content\Images\IconSet\social-6-blogger.png" />
+    <Content Include="Content\Images\IconSet\social-60-ebay.png" />
+    <Content Include="Content\Images\IconSet\social-7-picasa.png" />
+    <Content Include="Content\Images\IconSet\social-8-amazon.png" />
+    <Content Include="Content\Images\IconSet\social-9-tumblr.png" />
+    <Content Include="Content\Images\icon_256.png" />
+    <Content Include="Content\Images\istqb.jpeg" />
+    <Content Include="Content\Images\knowledge_1.png" />
+    <Content Include="Content\Images\knowledge_2.jpeg" />
+    <Content Include="Content\Images\law_1.png" />
+    <Content Include="Content\Images\loading-sm.gif" />
+    <Content Include="Content\Images\loading.gif" />
+    <Content Include="Content\Images\manager-6124298b45e324cae27500695ce04bab.png" />
+    <Content Include="Content\Images\medcina_1.png" />
+    <Content Include="Content\Images\other.png" />
+    <Content Include="Content\Images\pc5eyaGMi.png" />
+    <Content Include="Content\Images\philosophy_1.png" />
+    <Content Include="Content\Images\programming.png" />
+    <Content Include="Content\Images\qa_img-1024x467.jpg" />
+    <Content Include="Content\Images\Setting-icon.png" />
+    <Content Include="Content\Images\settings-5-xxl.png" />
+    <Content Include="Content\Images\transparent_check_by_lalajack-d4p9mx7.png" />
+    <Content Include="Content\Images\upload_1.png" />
+    <Content Include="Content\Images\user.png" />
+    <Content Include="Content\Images\website.png" />
+    <Content Include="Content\Images\Xcode_icon.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\download.pdf" />
+    <Content Include="Content\fonts\Action_Man.ttf" />
+    <Content Include="Content\fonts\Action_Man_Bold_Italic.ttf" />
+    <Content Include="Content\fonts\BebasNeue-webfont.eot" />
+    <Content Include="Content\fonts\BebasNeue-webfont.ttf" />
+    <Content Include="Content\fonts\BebasNeue-webfont.woff" />
+    <None Include="Properties\PublishProfiles\SmartQuizZN.pubxml" />
+    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dropzone.js" />
+    <Content Include="Scripts\fileinput.js" />
+    <Content Include="Scripts\fileinput.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.js" />
+    <Content Include="Scripts\jquery-2.1.3.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.11.2.js" />
+    <Content Include="Scripts\jquery-ui-1.11.2.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr.custom.29473.js" />
+    <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Site.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Topics.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\CreateQuiz.cshtml" />
+    <Content Include="Views\Home\Upload.cshtml" />
+    <Content Include="Views\Home\CreateTopic.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuestionAnalisys\QuestionAnalisys.csproj">
+      <Project>{e64ce8d5-a87e-45d9-a4fa-c2a0f2f9a489}</Project>
+      <Name>QuestionAnalisys</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TextProcessing\TextProcessing.csproj">
+      <Project>{e7decbdb-48e7-4723-a528-ed9c65f2fbe1}</Project>
+      <Name>TextProcessing</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>57154</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:57154/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

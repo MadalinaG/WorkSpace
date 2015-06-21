@@ -1,0 +1,107 @@
+﻿@using Microsoft.AspNet.Identity
+@model  SmartQA.Models.TestModels
+@{
+
+}
+@if (Request.IsAuthenticated)
+{
+    <div class="containerLogin">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                @Html.ActionLink("Save Quiz", "SaveQuiz", "Home", null, new { @id = "register-form-link", @class = "active" })
+                            </div>
+                            <div class="col-xs-6">
+                                @Html.ActionLink("Edit Quiz", "Edit Quiz", "Home", null, new { @id = "register-form-link" })
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                @using (Html.BeginForm("SaveQuiz", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "login-form", role = "form", enctype = "multipart/form-data" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    @Html.Hidden("ID", Model.ID)
+                                    @Html.Hidden("Title", Model.Title)
+
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                @*@Html.LabelFor(m => m.Title, new { @class = "col-sm-3 control-label" })*@
+                                                <div class="col-xs-8 col-lg-offset-2">
+                                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control ", @id = "titleQuiz", @tabindex = "1", @placeholder = "Quiz Name", @value = "", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="answer" for="topicselect">Description</label>
+                                                <div class="col-xs-8 col-lg-offset-2">
+                                                    @Html.TextAreaFor(m => m.Description, new { rows = "3", cols = "85", @name = "quest", @id = "quest", @class = "form-control quest", @placeholder = "Description", @tabindex = "3", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="answer" for="topicselect">Quiz Instructions</label>
+                                                <div class="col-xs-8 col-lg-offset-2">
+                                                    @Html.TextAreaFor(m => m.QuizInstructions, new { rows = "3", cols = "85", @name = "quest", @id = "quest", @class = "form-control quest", @placeholder = "Instructions", @tabindex = "3", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(m => m.QuizInstructions, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="answer" for="topicselect">Select Background Files</label>
+                                                <div class="col-xs-8 col-lg-offset-2">
+                                                    <input id="file-0a file1" name="files2" class="file uploadInput" type="file" multiple data-max-file-count="10" accept="application/pdf" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="panel-heading">
+                                        <div class="row">
+
+
+                                        </div>
+                                        <hr>
+                                    </div>
+                                    <div class="col-lg-offset-3">
+                                        <p class="handwritten">Almost done! Save it right away.</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-2 col-sm-offset-5">
+                                                <input type="submit" name="savequiz" id="topic-submit" tabindex="4" class="form-control btn btn-success saveq" value="Save">
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+
+<link href="~/Content/fileinput.min.css" rel="stylesheet" />
+<script src="~/Scripts/fileinput.min.js"></script>

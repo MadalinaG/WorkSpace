@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="smartqa" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^E:\\WorkSpace\\Platform\\SmartQuizZ\\SmartQA\\obj\\Release\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^E:\\WorkSpace\\Platform\\SmartQuizZ\\SmartQA\\obj\\Release\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="" value="Data Source=tcp:gyfba7sacb.database.windows.net,1433;Initial Catalog=smartqa_db;User Id=SmartQuiz@gyfba7sacb;Password=Madalina1893" tags="">
+    <parameterEntry kind="XmlFile" scope="E:\\WorkSpace\\Platform\\SmartQuizZ\\SmartQA\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="SmartQA.Models.ApplicationDbContext-Web.config Connection String" description="" value="Data Source=tcp:gyfba7sacb.database.windows.net,1433;Initial Catalog=SmartQuizZ_db;User ID=SmartQuiz@gyfba7sacb;Password=Madalina1893" tags="">
+    <parameterEntry kind="XmlFile" scope="E:\\WorkSpace\\Platform\\SmartQuizZ\\SmartQA\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SmartQA.Models.ApplicationDbContext']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,81 @@
+﻿@model SmartQA.Models.UserViewModels
+@{
+    ViewBag.Title = "Manage";
+}
+
+<div class="container">
+    <h1>Edit Profile</h1>
+    <hr>
+@using (Html.BeginForm("Index", "Manage", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+     {
+    <div class="row">
+        <!-- left column -->
+
+        <div class="col-md-3">
+            <div class="text-center">
+                <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+                <h6>Upload a different photo...</h6>
+
+                @*<input type="file" class="form-control">*@
+                <input id="file-0a file1" name="files" class="file form-control" type="file" data-max-file-count="1" accept="image/*" >
+            </div>
+        </div>
+
+        <!-- edit form column -->
+        <div class="col-md-9 personal-info">
+            <h3>Personal info</h3>
+                          
+                                
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Username, new { @class = "col-lg-3 control-label" })
+                    <div class="col-lg-8">
+                        @Html.TextBoxFor(m => m.Username, new { @class = "form-control ", @tabindex = "1" })
+                        @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                   @Html.LabelFor(m => m.Phone , new { @class = "col-lg-3 control-label" })
+                    <div class="col-lg-8">
+                       @Html.TextBoxFor(m => m.Phone, new { @class = "form-control ", @tabindex = "2" })
+                       @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Company, new { @class = "col-lg-3 control-label" })
+                    <div class="col-lg-8">
+                        @Html.TextBoxFor(m => m.Company, new { @class = "form-control ", @tabindex = "3" })
+                        @Html.ValidationMessageFor(m => m.Company, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                   @Html.LabelFor(m => m.Email, new { @class = "col-lg-3 control-label" })
+                    <div class="col-lg-8">
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control ", @tabindex = "4" })
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+              <div class="form-group">
+                @Html.LabelFor(m => m.TimeZone, new { @class = "col-lg-3 control-label" })
+                  <div class="col-lg-8">
+                      <div class="ui-select">
+                          @Html.DropDownListFor(m => m.TimeZone, (SelectList)ViewBag.TZList, new { @class = "form-control", @id = "user_time_zone", @tabindex = "6" })
+                          @Html.ValidationMessageFor(m => m.TimeZone, "", new { @class = "text-danger" })
+                      </div>
+                      </div>
+            </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-4 col-sm-offset-7">
+                                <input type="submit" name="submit" id="submit" tabindex="4" class="form-control btn btn-success" value="Save Changes">
+                            </div>
+                        </div>
+                    </div>
+
+
+       
+        </div>
+    </div>
+     }
+</div>
+     
+<hr>
