@@ -136,7 +136,7 @@ namespace SmartQA.Helpers
                         using (SqlTransaction transaction = connection.BeginTransaction())
                         {
                             string sql;
-                            sql = string.Format(getTestByUser, pageCount, offset, userId);
+                            sql = string.Format(getTestByUser,userId, offset,pageCount,pageCount );
                             using (SqlCommand command = new SqlCommand(sql, connection, transaction))
                             {
                                 using (SqlDataReader reader = command.ExecuteReader())
@@ -356,19 +356,19 @@ namespace SmartQA.Helpers
 
                                 command.Parameters.Add("@ID", SqlDbType.Int).Value = test.ID;
                                 command.Parameters.Add("@Title", SqlDbType.NVarChar, 256).Value = test.Title;
-                                command.Parameters.Add("@FileName", SqlDbType.NVarChar, 256).Value = test.FileName;
+                                command.Parameters.Add("@FileName", SqlDbType.NVarChar, 256).Value = (string.IsNullOrEmpty(test.FileName))? string.Empty : test.FileName;
                                 command.Parameters.Add("@TopicID", SqlDbType.Int).Value = test.TopicID;
-                                command.Parameters.Add("@AddedById", SqlDbType.NVarChar, 128).Value = test.AddedByID;
+                                command.Parameters.Add("@AddedById", SqlDbType.NVarChar, 128).Value = (string.IsNullOrEmpty(test.AddedByID))? string.Empty : test.AddedByID;
                                 command.Parameters.Add("@QuestionsNumber", SqlDbType.Int).Value = test.QuestionsNumber;
                                 command.Parameters.Add("@NumberOfAnswerForQuestion", SqlDbType.Int).Value = test.NumberOfAnswerForQuestion;
                                 command.Parameters.Add("@MultipleAnswersForOneQuestion", SqlDbType.Bit).Value = (test.MultipleAnswersForOneQuestion == true) ? 1 : 0;
-                                command.Parameters.Add("@Description", SqlDbType.NVarChar, 1000).Value = test.Description;
-                                command.Parameters.Add("@QuizInstructions", SqlDbType.NVarChar, 3000).Value = test.QuizInstructions;
-                                command.Parameters.Add("@QuizPathOnServer", SqlDbType.NVarChar, 500).Value = test.QuizPathOnServer;
+                                command.Parameters.Add("@Description", SqlDbType.NVarChar, 1000).Value = (string.IsNullOrEmpty(test.Description))?string.Empty :  test.Description;
+                                command.Parameters.Add("@QuizInstructions", SqlDbType.NVarChar, 3000).Value = (string.IsNullOrEmpty(test.QuizInstructions))? string.Empty : test.QuizInstructions;
+                                command.Parameters.Add("@QuizPathOnServer", SqlDbType.NVarChar, 500).Value = (string.IsNullOrEmpty(test.QuizPathOnServer))? string.Empty : test.QuizPathOnServer;
                                 command.Parameters.Add("@StartReadAtPage", SqlDbType.Int).Value = test.StartReadAtPage;
                                 command.Parameters.Add("@StopReadAtPage", SqlDbType.Int).Value = test.StopReadAtPage;
-                                command.Parameters.Add("@XmlBeforeProcess", SqlDbType.NVarChar, 3000).Value = test.XmlBeforeProcess;
-                                command.Parameters.Add("@Query", SqlDbType.NVarChar, 500).Value = test.Query;
+                                command.Parameters.Add("@XmlBeforeProcess", SqlDbType.NVarChar, 3000).Value = (string.IsNullOrEmpty(test.XmlBeforeProcess))? string.Empty : test.XmlBeforeProcess;
+                                command.Parameters.Add("@Query", SqlDbType.NVarChar, 500).Value = (string.IsNullOrEmpty(test.Query))? string.Empty : test.Query;
                                 int rows = command.ExecuteNonQuery();
                                 transaction.Commit();
                             }
@@ -501,7 +501,58 @@ namespace SmartQA.Helpers
             }
             return UserId;
         }
+        public TestModels GetTest(int id)
+        {
+            TestModels test = null;
+            if (_connectionString != string.Empty)
+            {
+                
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
 
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+                            using (SqlCommand command = new SqlCommand(getTestByID, connection, transaction))
+                            {
+                                command.Parameters.Add("@ID", SqlDbType.Int).Value = id;
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        test = new TestModels();
+
+                                        test.ID = Convert.ToInt32(reader["ID"]);
+                                        test.Title = reader["Title"].ToString();
+                                        test.FileName = reader["FileName"].ToString();
+                                        test.TopicID = Convert.ToInt32(reader["TopicID"]);
+                                        DateTime date;
+                                        DateTime.TryParse(reader["AddedTime"].ToString(), out date);
+                                        test.AddedTime = date;
+                                        test.QuizPathOnServer = reader["QuizPathOnServer"].ToString();
+                                        test.QuestionsNumber = Convert.ToInt32(reader["QuestionsNumber"]);
+                                        test.NumberOfAnswerForQuestion = Convert.ToInt32(reader["NumberOfAnswerForQuestion"]);
+                                        test.Solved = Convert.ToBoolean(reader["Solved"]);
+                                        test.StartReadAtPage = Convert.ToInt32(reader["StartReadAtPage"]);
+                                        test.StopReadAtPage = Convert.ToInt32(reader["StopReadAtPage"]);
+                                        test.AddedByID = reader["AddedByID"].ToString();
+                                    }
+                                }
+                            }
+                        }
+
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToDb(ex.Message);
+                }
+            }
+            return test;
+        }
         public int GetMAXIdForTable(string tableName)
         {
             int maxIdFromDb = -1;
@@ -1223,7 +1274,13 @@ namespace SmartQA.Helpers
         }
         private static string getQuestionNR = @"Select QuestionsNumber From Test Where ID = @QuizID";
         private static string getCountNrTopic = @"Select Count(*) From Topic";
-        private static string getTopicByOffsetNr = @"Select Top(@PageCount) *  From Topic Where ID >= @Offset";
+        //private static string getTopicByOffsetNr = @"Select Top(@PageCount) *  From Topic Where ID >= @Offset";
+        private static string getTopicByOffsetNr = @"   SELECT *
+                                                        FROM Topic
+                                                        ORDER BY AddedTime desc
+                                                        OFFSET ((@Offset - 1) * @PageCount) ROWS
+                                                        FETCH NEXT @PageCount ROWS ONLY;";
+
         private static string getTopicsQuery = @" Select * from Topic ORDER BY TopicName";
         private static string getMAxIdFromTable = @"Select Max(ID) AS ID from {0}";
         private static string UpdateTestWithQuestionNR = @"Update Test
@@ -1340,7 +1397,16 @@ namespace SmartQA.Helpers
         private static string updateUsers = @"Update Users SET Email = @Email, Username = @Username,  Phone = @Phone, Pictures = @Pictures,Company = @Company,  TimeZone = @TimeZone WHERE ID = @ID ";
         private static string updateAspUser = @"Update AspNetUsers SET Email = @Email, PhoneNumber = @Phone, UserName = @Username WHERE Id = @ID";
         private static string getTestNrByUser = @"Select Count(*) FROM Test WHERE AddedByID = @UserId";
-        private static string getTestByUser = @"Select Top( {0} )  ID,Title,TopicID,AddedTime,QuestionsNumber, (Select TopicName From Topic WHERE ID = TopicID) AS TopicName, Solved From Test Where ID >= {1} AND AddedByID = '{2}'";
+
+        private static string getTestByUser = @"Select   
+                                                            ID, Title,TopicID,AddedTime,QuestionsNumber, 
+                                                            (Select TopicName From Topic WHERE ID = TopicID) AS TopicName, Solved 
+                                                 From Test
+                                                 WHERE AddedByID = '{0}' 
+                                                 ORDER BY AddedTime desc
+                                                 OFFSET (({1} - 1) * {2}) ROWS
+                                                 FETCH NEXT {3} ROWS ONLY";
+
 
         private static string getTestsCount = @"Select Count('') From Test";
         private static string getTests = @"Select Top( {0} )  ID,Title,TopicID,AddedTime,QuestionsNumber, (Select TopicName From Topic WHERE ID = TopicID) AS TopicName, Solved, (Select PhotoName From Topic Where ID = TopicID) AS PhotoName, (Select UserName from AspNetUsers Where Id = AddedByID) AS Username, AddedByID From Test Order By AddedTime DESC";
@@ -1359,6 +1425,6 @@ namespace SmartQA.Helpers
                                                      Values ((select ISNULL(Max(ID),0) + 1 from BackgroundDocument), @Title, @TopicID, @TestID, @AddedByID, GETDATE(), @FileName, @Path)";
 
 
-
+        private static string getTestByID = @"SELECT * From Test WHERE ID = @ID";
     }
 }

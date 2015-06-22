@@ -186,6 +186,9 @@
     <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="TextExtraction\ExtractInfo.cs" />
+    <Compile Include="TextExtraction\PdfProcessing.cs" />
+    <Compile Include="TextExtraction\TextDocument.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-table.css" />
@@ -322,10 +325,10 @@
     <Content Include="Views\Home\BuildQuiz.cshtml" />
     <Content Include="Views\Home\EditQuiz.cshtml" />
     <Content Include="Views\Home\SaveQuiz.cshtml" />
+    <Content Include="Views\Home\QuestionsAnalisys.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="TextExtraction\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -333,6 +336,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuestionAnalisys\QuestionAnalisys.csproj">
+      <Project>{e64ce8d5-a87e-45d9-a4fa-c2a0f2f9a489}</Project>
+      <Name>QuestionAnalisys</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

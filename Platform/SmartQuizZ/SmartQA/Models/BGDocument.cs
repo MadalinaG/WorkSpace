@@ -14,5 +14,10 @@ namespace SmartQA.Models
         public string FileName { get; set; }
         public string Path { get; set; }
         public string AddedByID { get; set; }
+        public string[] Paragraphs { get; set; }
+        public float Score { get; set; }
+        public string Paragraph { get; set; }
+        public string[] ProcessedParagraphs { get; set; }
+        public string ProcessedParagraph { get; set; }
     }
 }

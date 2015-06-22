@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://resolution.anaphora.uaic/" targetNamespace="http://resolution.anaphora.uaic/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="solveLinks" type="tns:solveLinks" />
+  <xs:element name="solveLinksResponse" type="tns:solveLinksResponse" />
+  <xs:element name="solveLinks_XML" type="tns:solveLinks_XML" />
+  <xs:element name="solveLinks_XMLResponse" type="tns:solveLinks_XMLResponse" />
+  <xs:complexType name="solveLinks">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="text" type="xs:string" />
+      <xs:element minOccurs="0" name="language" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="solveLinksResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="solveLinks_XML">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="xml" type="xs:string" />
+      <xs:element minOccurs="0" name="language" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="solveLinks_XMLResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

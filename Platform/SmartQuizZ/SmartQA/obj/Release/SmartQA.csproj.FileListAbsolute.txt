@@ -54,3 +54,9 @@ E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Release\SmartQA.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Release\SmartQA.pdb
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\itextsharp.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\itextsharp.xml
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Release\SmartQA.csprojResolveAssemblyReference.cache
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\QuestionAnalisys.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\APIs.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\QuestionAnalisys.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\APIs.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\QuestionAnalisys.XmlSerializers.dll

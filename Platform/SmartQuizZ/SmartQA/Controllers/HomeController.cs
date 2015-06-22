@@ -122,7 +122,7 @@ namespace SmartQA.Controllers
         {
             ViewBag.Message = "Add Topic";
             DataAccess dbWork = new DataAccess(connectionString);
-            int offset = ((info.CurrentPageIndex - 1) * info.PageSize) + 1;
+            int offset = info.CurrentPageIndex;
             TopicList = dbWork.GetTopics(info.PageSize, offset);
 
             ViewBag.SortingPagingInfo = info;
@@ -308,7 +308,7 @@ namespace SmartQA.Controllers
         public ActionResult PersonalQuizzes(SortingPagingInfo info)
         {
             DataAccess dbWork = new DataAccess(connectionString);
-            int offset = ((info.CurrentPageIndex - 1) * info.PageSize) + 1;
+            int offset = info.CurrentPageIndex;
             Tests = dbWork.GetTestsByUser(User.Identity.GetUserId(), info.PageSize, offset);
 
             ViewBag.SortingPagingInfo = info;
@@ -545,6 +545,33 @@ namespace SmartQA.Controllers
             dbWork.DeleteObject(id, "Test");
 
             return RedirectToAction("PersonalQuizzes");
+        }
+
+        public ActionResult QuestionsAnalisys(int quizId)
+        {
+            DataAccess dbWork = new DataAccess(connectionString);
+            TestModels testSelected = dbWork.GetTest(quizId);
+
+            if (testSelected == null)
+            {
+                return View("Index");
+            }
+            else
+            {
+                if(string.IsNullOrEmpty(testSelected.FileName))
+                {
+
+                }
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult QuestionsAnalisys()
+        {
+
+            return View();
         }
     }
 }

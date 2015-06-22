@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://webPosRo.uaic/" targetNamespace="http://webPosRo.uaic/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="parseSentence_TXT" type="tns:parseSentence_TXT" />
+  <xs:element name="parseSentence_TXTResponse" type="tns:parseSentence_TXTResponse" />
+  <xs:element name="parseSentence_XML" type="tns:parseSentence_XML" />
+  <xs:element name="parseSentence_XMLResponse" type="tns:parseSentence_XMLResponse" />
+  <xs:element name="parseText_TXT" type="tns:parseText_TXT" />
+  <xs:element name="parseText_TXTResponse" type="tns:parseText_TXTResponse" />
+  <xs:element name="parseText_XML" type="tns:parseText_XML" />
+  <xs:element name="parseText_XMLResponse" type="tns:parseText_XMLResponse" />
+  <xs:complexType name="parseText_XML">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="rawTextInput" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseText_XMLResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseSentence_XML">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="rawSentenceInput" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseSentence_XMLResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseText_TXT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="rawTextInput" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseText_TXTResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseSentence_TXT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="rawSentenceInput" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseSentence_TXTResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://parser.discourse.uaic/" targetNamespace="http://parser.discourse.uaic/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="parse" type="tns:parse" />
+  <xs:element name="parseResponse" type="tns:parseResponse" />
+  <xs:element name="parse_Xml" type="tns:parse_Xml" />
+  <xs:element name="parse_XmlResponse" type="tns:parse_XmlResponse" />
+  <xs:complexType name="parse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="text" type="xs:string" />
+      <xs:element minOccurs="0" name="language" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parseResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parse_Xml">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="xml" type="xs:string" />
+      <xs:element minOccurs="0" name="language" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="parse_XmlResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -5,7 +5,14 @@
 }
 @if (Request.IsAuthenticated)
 {
-    <div class="containerLogin">
+    <div class="containerbuildquiz">
+        @if(Model.QuizSaved == true)
+        { 
+        <div class="alert alert-success">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <span><strong>Notice: </strong> Question number @Model.QuestionsNumber has been added successfully.</span>
+        </div>
+        }
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-login">
