@@ -11,8 +11,14 @@ using QuestionAnalisys.DTO;
 using System.Text.RegularExpressions;
 using IndexerLucene;
 
+
+using iTextSharp.text;
+
+using iTextSharp.text.pdf;
+
 using Newtonsoft.Json;
 using DeserializeProject;
+using System.IO;
 namespace Tests
 {
     [TestClass]
@@ -154,7 +160,7 @@ valid boundaries";
         public void ExtractText()
         {
             //TextProcessing.PdfProcessing text = new TextProcessing.PdfProcessing(@"C:\Users\madal_000\Desktop\Quiz\English\Skeletal System.pdf", 1, 2);
-            TextProcessing.PdfProcessing text = new TextProcessing.PdfProcessing(@"C:\Users\madal_000\Desktop\Quiz\Biologie\5. Analizatorul vizual.pdf", 1, 12);
+            TextProcessing.PdfProcessing text = new TextProcessing.PdfProcessing(@"C:\Users\Madalina\Desktop\tests\rom\bio\tests\5. Analizatorul vizual.pdf", 1, 12);
             List<TextDocument> list = text.GetAllText();
             ExtractInfo ex = new ExtractInfo(1, 1, 14, list[0].Text,5);
             ex.Extract();
@@ -162,10 +168,20 @@ valid boundaries";
             string query = ex.query;
             string  obj = JsonConvert.SerializeObject(questionList);
             List<Question> questionListDES = JsonConvert.DeserializeObject<List<Question>>(obj);
+
             if (questionList.Count > 0)
             {
                 Analyser analize = new Analyser(questionList, query);
                 analize.AnalizeQuestions();
+                string xd = HttpHandlers.SerializeToString<List<Question>>(questionList);
+                string path = @"C:\Users\Madalina\Desktop\tests\";
+                var doc1 = new Document();
+                PdfWriter.GetInstance(doc1, new FileStream(path + "/Doc1.pdf", FileMode.Create));
+                doc1.Open();
+
+                doc1.Add(new Paragraph("My first PDF"));
+
+                doc1.Close();
                 List<BackgroundDocument> bd = new List<BackgroundDocument>();
                 BackgroundDocument b = new BackgroundDocument();
               // b.Path = @"C:\Users\madal_000\Desktop\Quiz\English\Abdominal cavity.pdf";
@@ -243,7 +259,17 @@ Regula (principiul) capacităţii de a încheia acte juridice şi excepţia inca
 
         }
 
-
+        [TestMethod]
+        public void TestExtraction()
+        {
+            TextProcessing.PdfProcessing text = new TextProcessing.PdfProcessing(@"C:\Users\Madalina\Desktop\tests\rom\bio\tests\5. Analizatorul vizual.pdf", 1, 12);
+            List<TextDocument> list = text.GetAllText();
+            ExtractInfo ex = new ExtractInfo(1, 1, 95, list[0].Text, 5);
+            ex.Extract();
+            List<Question> questionList = ex.questionList;
+            string query = ex.query;
+            string obj = JsonConvert.SerializeObject(questionList);
+        }
 
     }
 }
