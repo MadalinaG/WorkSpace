@@ -670,7 +670,7 @@ namespace SmartQA.Helpers
                 }
                 catch (Exception ex)
                 {
-
+                    throw;
                 }
             }
         }
@@ -1272,6 +1272,133 @@ namespace SmartQA.Helpers
                 }
             }
         }
+        public List<QuestionModels> getQuestions(int quizID)
+        {
+            List<QuestionModels> Questions = new List<QuestionModels>();
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+
+                            using (SqlCommand command = new SqlCommand(getQuestionByTest, connection, transaction))
+                            {
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    command.Parameters.Add("QuizId", SqlDbType.Int).Value = quizID;
+                                    while (reader.Read())
+                                    {
+                                        QuestionModels question = new QuestionModels();
+                                        for (int i = 0; i < reader.FieldCount; i++)
+                                        {
+                                            question.ID = Convert.ToInt32(reader["ID"]);
+                                            question.QuizID = Convert.ToInt32(reader["QuizID"]);
+                                            question.TopicID = Convert.ToInt32(reader["TopicID"]);
+                                            question.DocumentID = Convert.ToInt32(reader["DocumentID"]);
+                                            question.MultipleAnswers = Convert.ToBoolean(reader["MultipleAnswers"]);
+                                            question.QuestionSolved = Convert.ToBoolean(reader["QuestionSolved"]);
+                                            question.NumberOfAnsers = Convert.ToInt32(reader["NumberOfAnsers"]);
+                                            question.Text = reader["Text"].ToString();
+                                        }
+                                        Questions.Add(question);
+                                    }
+                                }
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToDb(ex.Message);
+                }
+            }
+
+            return Questions;
+        }
+        public List<AnswerModels> getAnswersForQuestion(int questionID, int quizID)
+        {
+            List<AnswerModels> Answers = new List<AnswerModels>();
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+
+                            using (SqlCommand command = new SqlCommand(getAnswers, connection, transaction))
+                            {
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    command.Parameters.Add("QuizId", SqlDbType.Int).Value = quizID;
+                                    command.Parameters.Add("QuestionId", SqlDbType.Int).Value = questionID;
+                                    while (reader.Read())
+                                    {
+                                        AnswerModels answer = new AnswerModels();
+                                        for (int i = 0; i < reader.FieldCount; i++)
+                                        {
+                                            answer.ID = Convert.ToInt32(reader["ID"]);
+                                            answer.QuizID = Convert.ToInt32(reader["QuizID"]);
+                                            answer.QuestionID = Convert.ToInt32(reader["QuestionID"]);
+                                            answer.Text = reader["Text"].ToString();
+                                        }
+                                        Answers.Add(answer);
+                                    }
+                                }
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToDb(ex.Message);
+                }
+            }
+
+            return Answers;
+        }
+        public void UpdateTes(string query, string xmlBeforeProcess, string xmlAfterProcess, int quizID)
+        {
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+                            using (SqlCommand command = new SqlCommand(updateTestXML, connection, transaction))
+                            {
+                                command.Parameters.Add("@query", SqlDbType.NVarChar).Value = query;
+                                command.Parameters.Add("@XmlbeforeProcess", SqlDbType.NVarChar).Value = xmlBeforeProcess;
+                                command.Parameters.Add("@XmlAfterProcess", SqlDbType.NVarChar).Value = xmlAfterProcess;
+                                command.Parameters.Add("@QuizID", SqlDbType.Int).Value = quizID;
+                                int rows = command.ExecuteNonQuery();
+                                transaction.Commit();
+                            }
+
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToDb(ex.Message);
+                }
+            }
+        }
         private static string getQuestionNR = @"Select QuestionsNumber From Test Where ID = @QuizID";
         private static string getCountNrTopic = @"Select Count(*) From Topic";
         //private static string getTopicByOffsetNr = @"Select Top(@PageCount) *  From Topic Where ID >= @Offset";
@@ -1426,5 +1553,11 @@ namespace SmartQA.Helpers
 
 
         private static string getTestByID = @"SELECT * From Test WHERE ID = @ID";
+        private static string getQuestionByTest = @"Select * From Question Where QuizID = @QuizId";
+        private static string getAnswers = @"Select * from Answer Where QuizID = @QuizId and QuestionID = @QuestionId";
+        private static string updateTestXML= @"Update Test SET Query = @query, XmlBeforeProcess = @XmlbeforeProcess, XmlAfterProcess = @XmlAfterProcess WHERE ID = @QuizID";
+
+
+   
     }
 }

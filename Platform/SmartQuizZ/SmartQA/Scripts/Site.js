@@ -90,6 +90,9 @@ $(function () {
 
 $(document).ready(function () {
     $("[rel='tooltip']").tooltip();
+    $(function () {
+        $('a[title]').tooltip();
+    });
 
     $('.thumbnailBIO').hover(
         function () {

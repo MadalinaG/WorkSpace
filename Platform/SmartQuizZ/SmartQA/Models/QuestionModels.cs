@@ -15,7 +15,7 @@ namespace SmartQA.Models
         public bool MultipleAnswers { get; set; }
         public bool QuestionSolved { get; set; }
         public int NumberOfAnsers { get; set; }
-
+        public string qaXML { get; set; }
         [Required]
         [StringLength(256, ErrorMessage = "Question cannot be blank.", MinimumLength = 6)]
         [DataType(DataType.Text)]

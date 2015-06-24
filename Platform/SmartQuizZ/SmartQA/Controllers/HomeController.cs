@@ -9,6 +9,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using SmartQA.TextExtraction;
+using Newtonsoft.Json;
+using QuestionAnalisys;
 namespace SmartQA.Controllers
 {
     public class HomeController : Controller
@@ -28,7 +31,10 @@ namespace SmartQA.Controllers
             }
             return View();
         }
-
+        public ActionResult About()
+        {
+            return View();
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -280,9 +286,9 @@ namespace SmartQA.Controllers
                     }
                 }
             }
-            dbWork.SaveQuizDB( test, bgDocuments);
+          test.ID =   dbWork.SaveQuizDB( test, bgDocuments);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("QuestionsAnalisys", new { quizId = test.ID });
         }
 
         public ActionResult PersonalQuizzes(string UserId)
@@ -551,7 +557,8 @@ namespace SmartQA.Controllers
         {
             DataAccess dbWork = new DataAccess(connectionString);
             TestModels testSelected = dbWork.GetTest(quizId);
-
+            List<QuestionAnalisys.Question> questionList = null;
+            string query = string.Empty;
             if (testSelected == null)
             {
                 return View("Index");
@@ -560,8 +567,56 @@ namespace SmartQA.Controllers
             {
                 if(string.IsNullOrEmpty(testSelected.FileName))
                 {
+                    List<QuestionModels> questions = dbWork.getQuestions(testSelected.ID);
+                   for(int i = 0; i< questions.Count(); i++)
+                   {
+                       List<QuestionAnalisys.Answer> answers = new List<Answer>();
+                       questions[i].Answers = dbWork.getAnswersForQuestion(questions[i].ID, questions[i].QuizID);
 
+                       foreach(AnswerModels am in questions[i].Answers)
+                       {
+                           QuestionAnalisys.Answer an = new Answer()
+                           {
+                               ID = am.ID,
+                               Text = am.Text
+
+                           };
+                           answers.Add(an);
+                       }
+
+                       QuestionAnalisys.Question quest = new Question();
+                       quest.QuestionId = questions[i].ID;
+                       quest.QuizId = questions[i].QuizID;
+                       quest.TopicId = questions[i].TopicID;
+                       quest.QuestionText = questions[i].Text;
+                       quest.AnswerList = answers;
+                       questionList.Add(quest);
+                   }
                 }
+                else
+                {
+                       if(!string.IsNullOrEmpty(testSelected.QuizPathOnServer))
+                       {
+                           PdfProcessing process = new PdfProcessing(testSelected.QuizPathOnServer, testSelected.StartReadAtPage, testSelected.StopReadAtPage);
+                           List<TextDocument> list = process.GetAllText();
+                           ExtractInfo ex = new ExtractInfo(testSelected.ID, testSelected.TopicID,testSelected.QuestionsNumber, list[0].Text,testSelected.NumberOfAnswerForQuestion);
+                            ex.Extract();
+                            questionList = ex.questionList;
+                            query = ex.query;
+                       }
+                }
+
+
+                string xmlBeforeProcess = HttpHandlers.SerializeToString<List<QuestionAnalisys.Question>>(questionList);
+                string xmlAfterProcess = string.Empty;
+                if (questionList.Count > 0)
+                {
+                    Analyser analize = new Analyser(questionList, query);
+                    analize.AnalizeQuestions();
+                    xmlAfterProcess = HttpHandlers.SerializeToString<List<QuestionAnalisys.Question>>(questionList);
+                }
+
+                dbWork.UpdateTes(query, xmlBeforeProcess, xmlAfterProcess, testSelected.ID);
             }
 
             return View();

@@ -174,11 +174,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnswerM.cs" />
     <Compile Include="Models\AnswerModels.cs" />
     <Compile Include="Models\BGDocument.cs" />
     <Compile Include="Models\ContactModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\QuestionM.cs" />
     <Compile Include="Models\QuestionModels.cs" />
     <Compile Include="Models\SortingPagingInfo.cs" />
     <Compile Include="Models\TestModels.cs" />
@@ -191,6 +193,7 @@
     <Compile Include="TextExtraction\TextDocument.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Aboutage.css" />
     <Content Include="Content\bootstrap-table.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -326,6 +329,7 @@
     <Content Include="Views\Home\EditQuiz.cshtml" />
     <Content Include="Views\Home\SaveQuiz.cshtml" />
     <Content Include="Views\Home\QuestionsAnalisys.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
