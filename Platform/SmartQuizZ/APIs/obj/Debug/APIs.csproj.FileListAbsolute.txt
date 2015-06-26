@@ -3,3 +3,7 @@ E:\WorkSpace\SmartQuizZApp\APIs\bin\Debug\APIs.pdb
 E:\WorkSpace\SmartQuizZApp\APIs\obj\Debug\APIs.dll
 E:\WorkSpace\SmartQuizZApp\APIs\obj\Debug\APIs.pdb
 E:\WorkSpace\SmartQuizZApp\APIs\obj\Debug\APIs.csprojResolveAssemblyReference.cache
+E:\WorkSpace\Platform\SmartQuizZ\APIs\bin\Debug\APIs.dll
+E:\WorkSpace\Platform\SmartQuizZ\APIs\bin\Debug\APIs.pdb
+E:\WorkSpace\Platform\SmartQuizZ\APIs\obj\Debug\APIs.dll
+E:\WorkSpace\Platform\SmartQuizZ\APIs\obj\Debug\APIs.pdb

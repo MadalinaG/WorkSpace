@@ -648,7 +648,7 @@ div {
 .intro * {
     margin-left: 5%;
       font-family: 'Source Sans Pro', sans-serif;
-  font-size: 38px;
+  font-size: 150%;
   font-weight: bold;
   letter-spacing: 2px;
   width :80%;
@@ -656,6 +656,7 @@ div {
 }
 .intro strong {
   color: #d85f7f;
+  font-size: 150%;
 }
 .thumbnail {
    background-color : #F2F2F2;

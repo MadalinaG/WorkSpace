@@ -330,6 +330,7 @@
     <Content Include="Views\Home\SaveQuiz.cshtml" />
     <Content Include="Views\Home\QuestionsAnalisys.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Quizzes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

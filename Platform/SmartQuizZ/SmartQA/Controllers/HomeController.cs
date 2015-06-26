@@ -651,5 +651,39 @@ namespace SmartQA.Controllers
 
             return View();
         }
+
+
+        
+        public ActionResult Quizzes(int topicId)
+        {
+            
+            DataAccess dbWork = new DataAccess(connectionString);
+            int PageCount = dbWork.GetTestCountByTopic(topicId);
+
+            SortingPagingInfo info = new SortingPagingInfo();
+            info.SortField = "QuizName";
+            info.SortDirection = "ascending";
+            info.PageSize = 6;
+            info.PageCount = Convert.ToInt32(Math.Ceiling((double)(PageCount / info.PageSize))) + 1;
+            info.CurrentPageIndex = 1;
+            string userId = User.Identity.GetUserId();
+            Tests = dbWork.GetTestByTopic(topicId, info.PageSize, info.CurrentPageIndex);
+            ViewBag.UserId = userId;
+            ViewBag.SortingPagingInfo = info;
+            info.ObjectId = topicId;
+            return View(Tests);
+           
+        }
+         [HttpPost]
+        public ActionResult Quizzes(SortingPagingInfo info)
+        {
+            DataAccess dbWork = new DataAccess(connectionString);
+            int offset = info.CurrentPageIndex;
+            Tests = dbWork.GetTestByTopic(info.ObjectId, info.PageSize, offset);
+            
+            ViewBag.SortingPagingInfo = info;
+            ViewBag.UserId = User.Identity.GetUserId();
+            return View(Tests);
+        }
     }
 }

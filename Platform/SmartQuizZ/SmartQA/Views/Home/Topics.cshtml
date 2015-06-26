@@ -22,7 +22,7 @@
                     <div class="col-lg-3">
                         <div class="panel panel-success top">
                             <div class="panel-heading header">
-                                <a href="/Home/Topic">
+                                <a href="@Url.Action("Quizzes", "Home", new { topicId = item.ID })">
                                     <h3 class="panel-title"><span class="category">@item.TopicName</span></h3>
                                 </a>
                                         <span class="badge" title="Quiz numbers">@item.QuizNumber</span>

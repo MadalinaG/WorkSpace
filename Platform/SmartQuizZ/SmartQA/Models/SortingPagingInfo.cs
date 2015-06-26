@@ -12,5 +12,6 @@ namespace SmartQA.Models
         public int PageSize { get; set; }
         public int PageCount { get; set; }
         public int CurrentPageIndex { get; set; }
+        public int ObjectId { get; set; }
     }
 }

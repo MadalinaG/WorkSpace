@@ -4,6 +4,7 @@ E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\SmartQA.pdb
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Antlr3.Runtime.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\EntityFramework.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\EntityFramework.SqlServer.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\itextsharp.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.AspNet.Identity.Core.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -19,6 +20,7 @@ E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.Owin.Security.Twitter.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.Web.Infrastructure.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Newtonsoft.Json.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Owin.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\QuestionAnalisys.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.Helpers.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.Mvc.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.Optimization.dll
@@ -27,6 +29,9 @@ E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.WebPages.Deployment.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.WebPages.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.WebPages.Razor.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\WebGrease.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\APIs.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\QuestionAnalisys.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\itextsharp.xml
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.Helpers.xml
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.Mvc.xml
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\System.Web.Optimization.xml
@@ -50,6 +55,7 @@ E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.Owin.Security.OAuth.xml
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.Owin.Security.Google.xml
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.Owin.Security.Twitter.xml
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\APIs.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Debug\SmartQA.csprojResolveAssemblyReference.cache
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Debug\SmartQA.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Debug\SmartQA.pdb
-E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Debug\SmartQA.csprojResolveAssemblyReference.cache

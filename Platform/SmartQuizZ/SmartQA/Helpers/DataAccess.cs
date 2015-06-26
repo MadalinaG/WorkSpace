@@ -174,6 +174,60 @@ namespace SmartQA.Helpers
 
             return Tests;
         }
+        public List<TestModels> GetTestByTopic(int topicId, int pageCount, int offset)
+        {
+            List<TestModels> Tests = new List<TestModels>();
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+                            string sql;
+                            sql = string.Format(getTestByTopic, topicId, offset, pageCount, pageCount);
+                            using (SqlCommand command = new SqlCommand(sql, connection, transaction))
+                            {
+                               
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+
+                                    while (reader.Read())
+                                    {
+                                        TestModels test = new TestModels();
+                                        for (int i = 0; i < reader.FieldCount; i++)
+                                        {
+                                            test.ID = Convert.ToInt32(reader["ID"]);
+                                            test.Title = reader["Title"].ToString();
+                                            test.AddedByID = reader["AddedByID"].ToString();
+                                            test.TopicID = Convert.ToInt32(reader["TopicID"]);
+                                            DateTime date;
+                                            DateTime.TryParse(reader["AddedTime"].ToString(), out date);
+                                            test.AddedTime = date;
+                                            test.QuestionsNumber = Convert.ToInt32(reader["QuestionsNumber"]);
+                                            test.TopicName = reader["TopicName"].ToString();
+                                            test.Solved = Convert.ToBoolean(reader["Solved"]);
+                                        }
+                                        Tests.Add(test);
+                                    }
+                                }
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                    WriteErrorToDb(ex.Message);
+                }
+            }
+
+            return Tests;
+        }
         public List<TestModels> GetTests(int pag)
         {
             List<TestModels> Tests = new List<TestModels>();
@@ -305,6 +359,37 @@ namespace SmartQA.Helpers
 
                             using (SqlCommand command = new SqlCommand(getTestsCount, connection, transaction))
                             {
+                                countNr = (Int32)command.ExecuteScalar();
+                            }
+                        }
+
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToDb(ex.Message);
+                }
+            }
+            return countNr;
+        }
+        public int GetTestCountByTopic(int topicId)
+        {
+            int countNr = 0;
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
+                      
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+
+                            using (SqlCommand command = new SqlCommand(getTestsCountByTopic, connection, transaction))
+                            {
+                                command.Parameters.Add(@"TopicId", SqlDbType.Int).Value = topicId;
                                 countNr = (Int32)command.ExecuteScalar();
                             }
                         }
@@ -1403,9 +1488,9 @@ namespace SmartQA.Helpers
                 }
             }
         }
+        
         private static string getQuestionNR = @"Select QuestionsNumber From Test Where ID = @QuizID";
-        private static string getCountNrTopic = @"Select Count(*) From Topic";
-        //private static string getTopicByOffsetNr = @"Select Top(@PageCount) *  From Topic Where ID >= @Offset";
+        private static string getCountNrTopic = @"Select Count('') From Topic";
         private static string getTopicByOffsetNr = @"   SELECT *
                                                         FROM Topic
                                                         ORDER BY AddedTime desc
@@ -1527,7 +1612,7 @@ namespace SmartQA.Helpers
         private static string selectUser = @"Select ID, Email, Username, Phone, Pictures, Company, TimeZone FROM Users WHERE ID = @UserId";
         private static string updateUsers = @"Update Users SET Email = @Email, Username = @Username,  Phone = @Phone, Pictures = @Pictures,Company = @Company,  TimeZone = @TimeZone WHERE ID = @ID ";
         private static string updateAspUser = @"Update AspNetUsers SET Email = @Email, PhoneNumber = @Phone, UserName = @Username WHERE Id = @ID";
-        private static string getTestNrByUser = @"Select Count(*) FROM Test WHERE AddedByID = @UserId";
+        private static string getTestNrByUser = @"Select Count('') FROM Test WHERE AddedByID = @UserId";
 
         private static string getTestByUser = @"Select   
                                                             ID, Title,TopicID,AddedTime,QuestionsNumber, 
@@ -1539,6 +1624,7 @@ namespace SmartQA.Helpers
                                                  FETCH NEXT {3} ROWS ONLY";
 
 
+        private static string getTestsCountByTopic = @"Select Count('') From Test Where TopicID = @TopicId";
         private static string getTestsCount = @"Select Count('') From Test";
         private static string getTests = @"Select Top( {0} )  ID,Title,TopicID,AddedTime,QuestionsNumber, (Select TopicName From Topic WHERE ID = TopicID) AS TopicName, Solved, (Select PhotoName From Topic Where ID = TopicID) AS PhotoName, (Select UserName from AspNetUsers Where Id = AddedByID) AS Username, AddedByID From Test Order By AddedTime DESC";
 
@@ -1560,8 +1646,17 @@ namespace SmartQA.Helpers
         private static string getQuestionByTest = @"Select * From Question Where QuizID = @QuizId";
         private static string getAnswers = @"Select * from Answer Where QuizID = @QuizId and QuestionID = @QuestionId";
         private static string updateTestXML= @"Update Test SET Query = @query, XmlBeforeProcess = @XmlbeforeProcess, XmlAfterProcess = @XmlAfterProcess WHERE ID = @QuizID";
+        private static string getTestByTopic = @"Select   
+                                                            ID, Title,AddedByID,TopicID,AddedTime,QuestionsNumber, 
+                                                            (Select TopicName From Topic WHERE ID = TopicID) AS TopicName, Solved 
+                                                 From Test
+                                                 WHERE TopicId = '{0}' 
+                                                 ORDER BY AddedTime desc
+                                                 OFFSET (({1} - 1) * {2}) ROWS
+                                                 FETCH NEXT {3} ROWS ONLY";
 
 
-   
+
+       
     }
 }
