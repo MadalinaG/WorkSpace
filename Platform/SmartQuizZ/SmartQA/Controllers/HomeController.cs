@@ -411,7 +411,7 @@ namespace SmartQA.Controllers
                 }
             }
 
-            test.Questions[0].NumberOfAnsers = ValidAnswerList.Count();
+            test.Questions[0].NumberOfAnswers = ValidAnswerList.Count();
 
             dbWork.SaveQuestionAndAnswers(test.Questions[0], ValidAnswerList);
             TempData["CurrentQ"] = test;
@@ -537,7 +537,7 @@ namespace SmartQA.Controllers
 
             return View(test);
         }
-        
+        [HttpPost]
         public ActionResult DeleteQuiz(int id)
         {
             DataAccess dbWork = new DataAccess(connectionString);
@@ -557,7 +557,8 @@ namespace SmartQA.Controllers
         {
             DataAccess dbWork = new DataAccess(connectionString);
             TestModels testSelected = dbWork.GetTest(quizId);
-            List<QuestionAnalisys.Question> questionList = null;
+            List<QuestionM> qMList = new List<QuestionM>();
+            List<QuestionAnalisys.Question> questionList = new List<Question>(); ;
             string query = string.Empty;
             if (testSelected == null)
             {
@@ -606,22 +607,44 @@ namespace SmartQA.Controllers
                        }
                 }
 
-
-                string xmlBeforeProcess = HttpHandlers.SerializeToString<List<QuestionAnalisys.Question>>(questionList);
+                string xmlBeforeProcess = string.Empty;
+                //string xmlBeforeProcess = HttpHandlers.SerializeToString<List<QuestionAnalisys.Question>>(questionList);
                 string xmlAfterProcess = string.Empty;
                 if (questionList.Count > 0)
                 {
                     Analyser analize = new Analyser(questionList, query);
                     analize.AnalizeQuestions();
-                    xmlAfterProcess = HttpHandlers.SerializeToString<List<QuestionAnalisys.Question>>(questionList);
+                    
+                    foreach(QuestionAnalisys.Question qq in questionList)
+                    {
+                        QuestionM qM = new QuestionM();
+                        qM.QuestionText = qq.QuestionText;
+                        qM.QuestionLemmatized = qq.QuestionLemmatized;
+                        qM.QuestionId = qq.QuestionId;
+                        qM.QuestionAfterProcess = qq.QuestionAfterProcess;
+                        qM.LanguageId = qq.LanguageId;
+                        qM.KeyWords = qq.KeyWords;
+                        qM.IsNegative = qq.IsNegative;
+                        qM.Focus = qq.Focus;
+                        qM.AnswerTypeExpected = qq.AnswerTypeExpected;
+                        qM.AnswerList = qq.AnswerList;
+                        qM.QuizId = qq.QuizId;
+                        qM.TopicId = qq.TopicId;
+                        qM.QuestionType = qq.QuestionType;
+                        qM.SentanceW = qq.SentanceW;
+
+                        qMList.Add(qM);
+                    }
+                  
                 }
 
-                dbWork.UpdateTes(query, xmlBeforeProcess, xmlAfterProcess, testSelected.ID);
+                //dbWork.UpdateTes(query, xmlBeforeProcess, xmlAfterProcess, testSelected.ID);
             }
 
-            return View();
+            return View(qMList);
         }
 
+      
         [HttpPost]
         public ActionResult QuestionsAnalisys()
         {

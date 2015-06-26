@@ -12,5 +12,9 @@ namespace QuestionAnalisys
         public bool KeyWord { get; set;  }
         public int offset { get; set; }
         public int Score { get; set; }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

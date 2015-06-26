@@ -14,7 +14,7 @@ namespace SmartQA.Models
         public int DocumentID { get; set; }
         public bool MultipleAnswers { get; set; }
         public bool QuestionSolved { get; set; }
-        public int NumberOfAnsers { get; set; }
+        public int NumberOfAnswers { get; set; }
         public string qaXML { get; set; }
         [Required]
         [StringLength(256, ErrorMessage = "Question cannot be blank.", MinimumLength = 6)]

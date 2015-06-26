@@ -2,4 +2,3 @@ E:\WorkSpace\Platform\SmartQuizZ\APIs\bin\Release\APIs.dll
 E:\WorkSpace\Platform\SmartQuizZ\APIs\bin\Release\APIs.pdb
 E:\WorkSpace\Platform\SmartQuizZ\APIs\obj\Release\APIs.dll
 E:\WorkSpace\Platform\SmartQuizZ\APIs\obj\Release\APIs.pdb
-E:\WorkSpace\Platform\SmartQuizZ\APIs\obj\Release\APIs.csprojResolveAssemblyReference.cache

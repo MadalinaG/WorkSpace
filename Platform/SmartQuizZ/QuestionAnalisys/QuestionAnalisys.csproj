@@ -184,6 +184,8 @@
     <Compile Include="DTO\Head.cs" />
     <Compile Include="DTO\NP.cs" />
     <Compile Include="DTO\Part.cs" />
+    <Compile Include="DTO\Question.cs" />
+    <Compile Include="DTO\Questions.cs" />
     <Compile Include="DTO\S.cs" />
     <Compile Include="DTO\W.cs" />
     <Compile Include="EnglishStemmercs.cs" />
@@ -196,10 +198,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="DTO\Question.cs" />
     <Compile Include="QuestionProcessEN.cs" />
     <Compile Include="QuestionProcessRO.cs" />
-    <Compile Include="DTO\Questions.cs" />
     <Compile Include="RomanianStammer.cs" />
     <Compile Include="DTO\Sentance.cs" />
     <Compile Include="StanfordCoreNLP.cs" />

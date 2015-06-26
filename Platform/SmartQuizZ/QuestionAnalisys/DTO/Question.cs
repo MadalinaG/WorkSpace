@@ -29,8 +29,10 @@ namespace QuestionAnalisys
         [XmlElement(ElementName = "QuestionAfterProcess", IsNullable = true)]
         public string QuestionAfterProcess { get; set; }
 
-        [XmlElement(ElementName = "LanguageId", IsNullable = true)]
-        public Languages LanguageId { get; set; }
+        private Languages language;
+
+        [XmlElement(ElementName = "LanguageId")]
+        public Languages LanguageId { get { return language; } set { language = (value != 0)? value : Languages.Unrecognized; } }
 
         [XmlElement(ElementName = "QuestionType", IsNullable = true)]
         public QuestionType QuestionType { get; set; }
@@ -74,7 +76,16 @@ namespace QuestionAnalisys
         public bool ShouldSerializeIsNegative()
         {
             return IsNegative != null;
+        
         }
-      
+
+        public bool ShouldSerializeQuestionType()
+        {
+            return QuestionType != null;
+        }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

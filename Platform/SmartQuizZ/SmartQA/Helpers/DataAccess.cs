@@ -1037,7 +1037,7 @@ namespace SmartQA.Helpers
                             {
                                 command.Parameters.Add("@QuizID", SqlDbType.Int).Value = questionModels.QuizID;
                                 command.Parameters.Add("@TopicID", SqlDbType.Int).Value = questionModels.TopicID;
-                                command.Parameters.Add("@NumberOfAnswers", SqlDbType.Int).Value = questionModels.NumberOfAnsers;
+                                command.Parameters.Add("@NumberOfAnswers", SqlDbType.Int).Value = questionModels.NumberOfAnswers;
                                 command.Parameters.Add("@Text", SqlDbType.NVarChar).Value = questionModels.Text;
                                 rows = command.ExecuteNonQuery();
                                 transaction.Commit();
@@ -1288,9 +1288,10 @@ namespace SmartQA.Helpers
 
                             using (SqlCommand command = new SqlCommand(getQuestionByTest, connection, transaction))
                             {
+                                command.Parameters.Add("@QuizId", SqlDbType.Int).Value = quizID;
                                 using (SqlDataReader reader = command.ExecuteReader())
                                 {
-                                    command.Parameters.Add("QuizId", SqlDbType.Int).Value = quizID;
+                                  
                                     while (reader.Read())
                                     {
                                         QuestionModels question = new QuestionModels();
@@ -1302,8 +1303,9 @@ namespace SmartQA.Helpers
                                             question.DocumentID = Convert.ToInt32(reader["DocumentID"]);
                                             question.MultipleAnswers = Convert.ToBoolean(reader["MultipleAnswers"]);
                                             question.QuestionSolved = Convert.ToBoolean(reader["QuestionSolved"]);
-                                            question.NumberOfAnsers = Convert.ToInt32(reader["NumberOfAnsers"]);
+                                            question.NumberOfAnswers = Convert.ToInt32(reader["NumberOfAnswers"]);
                                             question.Text = reader["Text"].ToString();
+                                            
                                         }
                                         Questions.Add(question);
                                     }
@@ -1337,10 +1339,11 @@ namespace SmartQA.Helpers
 
                             using (SqlCommand command = new SqlCommand(getAnswers, connection, transaction))
                             {
+                                command.Parameters.Add("QuizId", SqlDbType.Int).Value = quizID;
+                                command.Parameters.Add("QuestionId", SqlDbType.Int).Value = questionID;
                                 using (SqlDataReader reader = command.ExecuteReader())
                                 {
-                                    command.Parameters.Add("QuizId", SqlDbType.Int).Value = quizID;
-                                    command.Parameters.Add("QuestionId", SqlDbType.Int).Value = questionID;
+                                  
                                     while (reader.Read())
                                     {
                                         AnswerModels answer = new AnswerModels();
@@ -1361,6 +1364,7 @@ namespace SmartQA.Helpers
                 }
                 catch (Exception ex)
                 {
+                    throw;
                     WriteErrorToDb(ex.Message);
                 }
             }
@@ -1540,7 +1544,7 @@ namespace SmartQA.Helpers
 
         private static string insertQuestion = @"Insert Into Question 
                                                 (ID, QuizID, TopicID, NumberOfAnswers, Text, DocumentID, MultipleAnswers, QuestionSolved) 
-                                                Values ((SELECT ISNULL(MAX (ID),0) FROM Answer) + 1, @QuizID, @TopicID, @NumberOfAnswers, @Text, 0, 0, 0)";
+                                                Values ((SELECT ISNULL(MAX (ID),0) FROM Question) + 1, @QuizID, @TopicID, @NumberOfAnswers, @Text, 0, 0, 0)";
 
         private static string insertAnswer = @"Insert Into Answer (ID, QuizID, QuestionID, Text) Values ((SELECT ISNULL(MAX (ID), 0) FROM Answer) + 1, @QuizID, @QuestionID, @Text)";
 

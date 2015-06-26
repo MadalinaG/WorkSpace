@@ -33,5 +33,9 @@ namespace QuestionAnalisys
         public int MaxNrWFinded { get; set; }
 
         public int NrWNeedToBeFound { get; set; }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }

@@ -10,5 +10,9 @@ namespace QuestionAnalisys
     public class Questions
     {
         public List<Question> QuestionsList { get; set; }
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
