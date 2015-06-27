@@ -12,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using SmartQA.TextExtraction;
 using Newtonsoft.Json;
 using QuestionAnalisys;
+using System.Text.RegularExpressions;
 namespace SmartQA.Controllers
 {
     public class HomeController : Controller
@@ -558,6 +559,7 @@ namespace SmartQA.Controllers
             DataAccess dbWork = new DataAccess(connectionString);
             TestModels testSelected = dbWork.GetTest(quizId);
             List<QuestionM> qMList = new List<QuestionM>();
+            string xmlBeforeProcess = string.Empty;
             List<QuestionAnalisys.Question> questionList = new List<Question>(); ;
             string query = string.Empty;
             if (testSelected == null)
@@ -568,48 +570,64 @@ namespace SmartQA.Controllers
             {
                 if(string.IsNullOrEmpty(testSelected.FileName))
                 {
-                    List<QuestionModels> questions = dbWork.getQuestions(testSelected.ID);
-                   for(int i = 0; i< questions.Count(); i++)
-                   {
-                       List<QuestionAnalisys.Answer> answers = new List<Answer>();
-                       questions[i].Answers = dbWork.getAnswersForQuestion(questions[i].ID, questions[i].QuizID);
+                    if (string.IsNullOrEmpty(testSelected.XmlBeforeProcess)||string.IsNullOrEmpty(testSelected.Query))
+                    {
+                        List<QuestionModels> questions = dbWork.getQuestions(testSelected.ID);
+                        for (int i = 0; i < questions.Count(); i++)
+                        {
+                            List<QuestionAnalisys.Answer> answers = new List<Answer>();
+                            questions[i].Answers = dbWork.getAnswersForQuestion(questions[i].ID, questions[i].QuizID);
 
-                       foreach(AnswerModels am in questions[i].Answers)
-                       {
-                           QuestionAnalisys.Answer an = new Answer()
-                           {
-                               ID = am.ID,
-                               Text = am.Text
-
-                           };
-                           answers.Add(an);
-                       }
-
-                       QuestionAnalisys.Question quest = new Question();
-                       quest.QuestionId = questions[i].ID;
-                       quest.QuizId = questions[i].QuizID;
-                       quest.TopicId = questions[i].TopicID;
-                       quest.QuestionText = questions[i].Text;
-                       quest.AnswerList = answers;
-                       questionList.Add(quest);
-                   }
+                            foreach (AnswerModels am in questions[i].Answers)
+                            {
+                                QuestionAnalisys.Answer an = new Answer()
+                                {
+                                    ID = am.ID,
+                                    Text = am.Text
+                                };
+                                answers.Add(an);
+                            }
+                            QuestionAnalisys.Question quest = new Question();
+                            quest.QuestionId = questions[i].ID;
+                            quest.QuizId = questions[i].QuizID;
+                            quest.TopicId = questions[i].TopicID;
+                            quest.QuestionText = questions[i].Text;
+                            quest.AnswerList = answers;
+                            quest.QuestionText = Regex.Replace(quest.QuestionText, @"^\d+\.+", "");
+                            questionList.Add(quest);
+                            query += quest.QuestionText + ".";
+                        }
+                    }
+                    else
+                    {
+                        query = testSelected.Query;
+                        questionList = HttpHandlers.Deserialize<List<QuestionAnalisys.Question>>(testSelected.XmlBeforeProcess);
+                    }
                 }
                 else
                 {
-                       if(!string.IsNullOrEmpty(testSelected.QuizPathOnServer))
-                       {
-                           PdfProcessing process = new PdfProcessing(testSelected.QuizPathOnServer, testSelected.StartReadAtPage, testSelected.StopReadAtPage);
-                           List<TextDocument> list = process.GetAllText();
-                           ExtractInfo ex = new ExtractInfo(testSelected.ID, testSelected.TopicID,testSelected.QuestionsNumber, list[0].Text,testSelected.NumberOfAnswerForQuestion);
+                    if (string.IsNullOrEmpty(testSelected.XmlBeforeProcess) || string.IsNullOrEmpty(testSelected.Query))
+                    {
+
+                        if (!string.IsNullOrEmpty(testSelected.QuizPathOnServer))
+                        {
+                            PdfProcessing process = new PdfProcessing(testSelected.QuizPathOnServer, testSelected.StartReadAtPage, testSelected.StopReadAtPage);
+                            List<TextDocument> list = process.GetAllText();
+                            ExtractInfo ex = new ExtractInfo(testSelected.ID, testSelected.TopicID, testSelected.QuestionsNumber, list[0].Text, testSelected.NumberOfAnswerForQuestion);
                             ex.Extract();
                             questionList = ex.questionList;
                             query = ex.query;
-                       }
+                        }
+                    }
+                    else
+                    {
+                        query = testSelected.Query;
+                        questionList = HttpHandlers.Deserialize<List<QuestionAnalisys.Question>>(testSelected.XmlBeforeProcess);
+                    }
                 }
 
-                string xmlBeforeProcess = string.Empty;
-                //string xmlBeforeProcess = HttpHandlers.SerializeToString<List<QuestionAnalisys.Question>>(questionList);
-                string xmlAfterProcess = string.Empty;
+                xmlBeforeProcess = HttpHandlers.SerializeToString<List<QuestionAnalisys.Question>>(questionList);
+              
                 if (questionList.Count > 0)
                 {
                     Analyser analize = new Analyser(questionList, query);
@@ -633,22 +651,37 @@ namespace SmartQA.Controllers
                         qM.QuestionType = qq.QuestionType;
                         qM.SentanceW = qq.SentanceW;
 
+
+                        qM.QuestionText = Regex.Replace(qM.QuestionText, @"^\d+\.+", "");
+                        string keyWord = string.Empty;
+                        if (qM.KeyWords != null && qM.KeyWords.Count() > 0)
+                        foreach(Word word in qM.KeyWords)
+                        {
+                            string details = "[Pos:" + word.POS + " | Score:" + word.Score + "];     ";
+                            keyWord += word.LEMMA.ToUpper() + details.ToLower();
+                        }
+                        qM.KeyWord = keyWord;
+                       
                         qMList.Add(qM);
                     }
-                  
                 }
-
-                //dbWork.UpdateTes(query, xmlBeforeProcess, xmlAfterProcess, testSelected.ID);
             }
 
+            ViewBag.QuizTitle = testSelected.Title;
+            ViewBag.QuizId = testSelected.ID;
+            SmartQA.Models.QuestionsM questionsList = new Models.QuestionsM();
+            questionsList.QuestionsList = qMList;
+            string xmlAfterProcess = HttpHandlers.SerializeToString<QuestionsM>(questionsList);
+
+            dbWork.UpdateTes(query, xmlBeforeProcess, xmlAfterProcess, testSelected.ID);
             return View(qMList);
         }
 
-      
-        [HttpPost]
-        public ActionResult QuestionsAnalisys()
+        public ActionResult ExtractAnswers(int quizID, string title)
         {
-
+            DataAccess dbWork = new DataAccess(connectionString);
+            TestModels testSelected = dbWork.GetTest(quizID);
+            
             return View();
         }
 

@@ -1,128 +1,81 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@model  List<SmartQA.Models.QuestionM>
+@{
+    SmartQA.Models.SortingPagingInfo info = ViewBag.SortingPagingInfo;
+}@if (Request.IsAuthenticated)
+{
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-    <div class="container">
+    <h3 class="qah2">Question Analisys output</h3>
+    using (Html.BeginForm("QuestionsAnalisys", "Home", FormMethod.Post))
+    {
+    <a href="@Url.Action("ExtractAnswers", "Home", new { quizId = ViewBag.QuizId, title = ViewBag.QuizTitle })" class="btn btn-primary NextExtractAnswer">Extract Answers<span class="addTopicc glyphicon glyphicon-arrow-right"></span></a>
+    
+    <div class="containerLogin">
+        
         <div class="panel panel-default widget">
             <div class="panel-heading">
-                <h3 class="panel-title">Panel List Group with Expandable Setail Section</h3>
+                <span class="glyphicon glyphicon-th-list"></span>
+                <h3 class="panel-title">
+                <strong>@ViewBag.QuizTitle</strong>  
+                </h3>
+                <span class="label label-info">
+                    @Model.Count()
+                </span>
             </div>
             <ul class="list-group">
-                <li class="list-group-item">
-                    <div class="row toggle" id="dropdown-detail-1" data-toggle="detail-1">
-                        <div class="col-xs-10">
-                            Item 1
+                @for (var i = 0; i < Model.Count(); i++)
+                {
+                    <li class="list-group-item">
+                        <div class="row toggle" id="dropdown-detail-@i" data-toggle="detail-@i">
+                            <div class="col-xs-10">
+                                Question @(i + 1) :         @Model[i].QuestionText
+                            </div>
+                            <div class="col-xs-2"><i class="fa fa-chevron-down pull-right"></i></div>
                         </div>
-                        <div class="col-xs-2"><i class="fa fa-chevron-down pull-right"></i></div>
-                    </div>
-                    <div id="detail-1">
-                        <hr></hr>
-                        <div class="container">
-                            <div class="fluid-row">
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        <div id="detail-@i">
+                            <hr></hr>
+                            <div class="container">
+                                <div class="fluid-row">
+                                    <div class="table-responsive">
+                                        <table id="mytableQA" class="table table-small-font table-striped table-bordered">
+
+                                            <thead>
+                                            <th style="border:1px solid #dddddd; font-size:0.8em;text-align:center">Question Lemmatized</th>
+                                            <th style="border:1px solid #dddddd; font-size:0.8em;text-align:center">Focus</th>
+                                            <th style="border:1px solid #dddddd; font-size:0.8em;text-align:center">Question Type</th>
+                                            <th style="border:1px solid #dddddd; font-size:0.8em;text-align:center">Answer type expected</th>
+                                            <th style="border:1px solid #dddddd; font-size:0.8em;text-align:center">Is negative</th>
+                                            <th style="border:1px solid #dddddd; font-size:0.8em;text-align:center">Language</th>
+                                            <th style="border:1px solid #dddddd; font-size:0.8em;text-align:center">Key Words</th>
+                                            </thead>
+                                            <tbody>
+
+                                                <tr>
+                                                    <td style="font-size:1em; text-align:center">@Model[i].QuestionLemmatized</td>
+                                                    <td style="font-size:1em; text-align:center">@Model[i].Focus</td>
+                                                    <td style="font-size:1em; text-align:center">@Model[i].QuestionType</td>
+                                                    <td style="font-size:1em; text-align:center">@Model[i].AnswerTypeExpected</td>
+                                                    <td style="font-size:1em; text-align:center">@Model[i].IsNegative</td>
+                                                    <td style="font-size:1em; text-align:center">@Model[i].LanguageId</td>
+                                                    <td style="font-size:1em; text-align:center">@Model[i].KeyWord</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row toggle" id="dropdown-detail-2" data-toggle="detail-2">
-                        <div class="col-xs-10">
-                            Item 2
-                        </div>
-                        <div class="col-xs-2"><i class="fa fa-chevron-down pull-right"></i></div>
-                    </div>
-                    <div id="detail-2">
-                        <hr></hr>
-                        <div class="container">
-                            <div class="fluid-row">
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="row toggle" id="dropdown-detail-3" data-toggle="detail-3">
-                        <div class="col-xs-10">
-                            Item 3
-                        </div>
-                        <div class="col-xs-2"><i class="fa fa-chevron-down pull-right"></i></div>
-                    </div>
-                    <div id="detail-3">
-                        <hr></hr>
-                        <div class="container">
-                            <div class="fluid-row">
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                                <div class="col-xs-1">
-                                    Detail:
-                                </div>
-                                <div class="col-xs-5">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                }
+
             </ul>
         </div>
     </div>
+    }
+}
+ else
+ {
+
+ }
+<link href="~/Content/bootstrap-table.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-table.js"></script>

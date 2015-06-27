@@ -50,6 +50,24 @@ WP: WH-pronoun  that what whatever whatsoever which who whom whosoever
 WP$: WH-pronoun, possessive  whose
 WRB: Wh-adverb how however whence whenever where whereby whereever wherein whereof why
              * */
+
+
+
+//            MSD)tag The)meaning)of)the)notation)(according)to)MULTEXTTEast))lexical)specifications)
+//Afpfson Adjective)qualifier)positive)feminine))singular)oblique)Ldefiniteness
+//Afpfsrn Adjective)qualifier)positive)feminine))singular)direct)Ldefiniteness
+//Afpms-n Adjective)qualifier)positive)masculine)singular)Ldefiniteness
+//Ncfsoy Noun)common)feminine)singular)oblique)+definiteness
+//Ncfsrn Noun)common)feminine)singular)direct)Ldefiniteness
+//Ncfsry Noun)common)feminine)singular)direct)+definiteness
+//Ncmsoy Noun)common)masculine)singular)oblique)+definiteness
+//Ncmsry Noun)common)masculine)singular)direct)+definiteness
+//Ncms-n Noun)common)masculine)singular)Ldefiniteness
+//Pp3fso- Pronoun)personal)third)feminine)singular)oblique)
+//Spsa Adposition)preposition)simple)accusative
+//Tifsr Article)indefinite)feminine)singular)direct
+//Timsr Article)indefinite)masculine)singular)direct
+//Tsms Article)possessive)masculine)singular
         }
     }
 }

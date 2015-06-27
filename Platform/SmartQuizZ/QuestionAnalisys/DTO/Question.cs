@@ -20,47 +20,66 @@ namespace QuestionAnalisys
         [XmlElement(ElementName = "TopicId")]
         public int? TopicId { get; set; }
 
-        [XmlElement(ElementName = "QuestionText", IsNullable = true)]
+        [XmlElement(ElementName = "QuestionText")]
         public string QuestionText { get; set; }
 
-        [XmlElement(ElementName = "QuestionLemmatized", IsNullable = true)]
+        [XmlElement(ElementName = "QuestionLemmatized")]
         public string QuestionLemmatized { get; set; }
 
-        [XmlElement(ElementName = "QuestionAfterProcess", IsNullable = true)]
+        [XmlElement(ElementName = "QuestionAfterProcess")]
         public string QuestionAfterProcess { get; set; }
 
-        private Languages language;
-
         [XmlElement(ElementName = "LanguageId")]
-        public Languages LanguageId { get { return language; } set { language = (value != 0)? value : Languages.Unrecognized; } }
+        public Languages LanguageId { get; set; } 
 
-        [XmlElement(ElementName = "QuestionType", IsNullable = true)]
+        [XmlElement(ElementName = "QuestionType")]
         public QuestionType QuestionType { get; set; }
 
-        [XmlElement(ElementName = "AnswerTypeExpected", IsNullable = true)]
+        [XmlElement(ElementName = "AnswerTypeExpected")]
         public AnswerTypeExpected? AnswerTypeExpected { get; set; }
 
-        [XmlElement(ElementName = "SentanceW", IsNullable = true)]
+        [XmlElement(ElementName = "SentanceW")]
         public Sentance SentanceW { get; set; }
 
-        [XmlElement(ElementName = "AnswerList", IsNullable = true)]
+        [XmlElement(ElementName = "AnswerList")]
         public List<Answer> AnswerList { get; set; }
 
-        [XmlElement(ElementName = "CorrectAnswers", IsNullable = true)]
+        [XmlElement(ElementName = "CorrectAnswers")]
         public List<Answer> CorrectAnswers { get; set; }
 
-        [XmlElement(ElementName = "KeyWords", IsNullable = true)]
+        [XmlElement(ElementName = "KeyWords")]
         public List<Word> KeyWords { get; set; }
 
         [XmlElement(ElementName = "IsNegative")]
         public bool? IsNegative { get; set; }
 
-        [XmlElement(ElementName = "Focus", IsNullable = true)]
+        [XmlElement(ElementName = "Focus")]
         public string Focus { get; set; }
 
         [XmlElement(ElementName = "IsAnswered")]
         public bool? IsAnswered { get; set; }
 
+
+        public bool ShouldSerializeQuestionType()
+        {
+            return QuestionType != 0;
+        }
+        public bool ShouldSerializeSentanceW()
+        {
+            return SentanceW != null;
+        }
+        public bool ShouldSerializeAnswerTypeExpected()
+        {
+            return AnswerTypeExpected != 0;
+        }
+        public bool ShouldSerializeFocus()
+        {
+            return Focus != null;
+        }
+        public bool ShouldSerializeLanguageId()
+        {
+            return LanguageId != 0;
+        }
         public bool ShouldSerializeQuizId()
         {
             return QuizId != null;
@@ -76,16 +95,7 @@ namespace QuestionAnalisys
         public bool ShouldSerializeIsNegative()
         {
             return IsNegative != null;
-        
         }
-
-        public bool ShouldSerializeQuestionType()
-        {
-            return QuestionType != null;
-        }
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }
+      
     }
 }

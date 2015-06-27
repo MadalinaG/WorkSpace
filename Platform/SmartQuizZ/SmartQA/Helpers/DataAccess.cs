@@ -623,6 +623,9 @@ namespace SmartQA.Helpers
                                         test.StartReadAtPage = Convert.ToInt32(reader["StartReadAtPage"]);
                                         test.StopReadAtPage = Convert.ToInt32(reader["StopReadAtPage"]);
                                         test.AddedByID = reader["AddedByID"].ToString();
+                                        test.Query = reader["Query"].ToString();
+                                        test.XmlBeforeProcess = reader["XmlBeforeProcess"].ToString();
+                                        test.XmlAfterProcess = reader["XmlAfterProcess"].ToString();
                                     }
                                 }
                             }

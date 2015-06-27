@@ -271,7 +271,7 @@ namespace QuestionAnalisys
         public Sentance GetLemma()
         {
             Sentance question = new Sentance();
-
+            bool focusSet = false;
             if(!string.IsNullOrEmpty(xml))
             {
                 question.Words = new List<Word>();
@@ -285,6 +285,12 @@ namespace QuestionAnalisys
                     wordFromQuestion.LEMMA = element.Attribute("lemma").Value;
                     wordFromQuestion.Value = element.Value;
                     wordFromQuestion.POS = GETPSpeach(element.Attribute("ana").Value);
+                    if (focusSet == false && wordFromQuestion.POS == PartOfSpeech.NOUN)
+                    {
+                        Focus = Focus + " " + wordFromQuestion.LEMMA;
+                        focusSet = true;
+                    }
+                    wordFromQuestion.Score = GetScore(wordFromQuestion.POS);
                     if (element.Attribute("chunk") != null)
                     {
                         wordFromQuestion.KeyWord = IsNP(element.Attribute("chunk").Value);
@@ -292,7 +298,7 @@ namespace QuestionAnalisys
                     }
                     question.Words.Add(wordFromQuestion);
 
-                    if (char.IsUpper(wordFromQuestion.Value[0]))
+                    if (char.IsUpper(wordFromQuestion.LEMMA[0]))
                     {
                         Focus = Focus + " " + wordFromQuestion.Value;
                     }
@@ -301,21 +307,37 @@ namespace QuestionAnalisys
             return question;
         }
 
+        private int GetScore(PartOfSpeech pos)
+        {
+            int score = 0;
+            switch(pos)
+            {
+                case PartOfSpeech.NOUN:
+                    score =  75;
+                    break;
+                case PartOfSpeech.ADJECTIVE:
+                    score = 50;
+                    break;
+                case PartOfSpeech.VERB:
+                    score = 30;
+                    break;
+            }
+            return score;
+        }
         private int GetOffset(bool isNp, string NP)
         {
             int offset = 0;
             if(isNp)
             {
-                int start = NP.IndexOf("NP#");
-                char off = NP[start + 3];
-                offset = Convert.ToInt32(off);
+
+                offset = (int)Char.GetNumericValue(NP[NP.Length - 1]);
             }
             return offset;
         }
 
         private bool IsNP(string p)
         {
-            if(p.Contains("NP"))
+            if(p.Contains("Np"))
             {
                 return true;
             }

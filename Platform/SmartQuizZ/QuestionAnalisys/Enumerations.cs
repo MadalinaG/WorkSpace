@@ -110,7 +110,8 @@ namespace QuestionAnalisys
         NpChunkerRoWS = 1,
         Racai = 2,
         Standford = 3,
-        NamedEntityRecognizerWS = 4
+        NamedEntityRecognizerWS = 4,
+        Default = 5
     }
     
 }

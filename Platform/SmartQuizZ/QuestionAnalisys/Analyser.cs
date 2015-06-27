@@ -13,7 +13,7 @@ namespace QuestionAnalisys
     {
         public List<Question> QuestionList;
         private string Query;
-        private Services service;
+        private Services service = Services.Default;
 
         public Analyser(List<Question> questionList, string query)
         {
@@ -46,50 +46,55 @@ namespace QuestionAnalisys
 
             for (int i = 0; i < QuestionList.Count; i++)
             {
-                Question question = QuestionList[i];
-                question.QuestionAfterProcess = QuestionsAfterProcess[i];
-                question.LanguageId = language;
-
-                if (question.LanguageId == Languages.Romanian)
+                if (!string.IsNullOrEmpty(QuestionList[i].QuestionText))
                 {
-                    lang = "ro";
-                    parid = "ro";
-                }
-                else
-                {
-                    lang = "en";
-                    parid = "eng";
-                }
 
-                question = BuildSentence(question, lang, parid);
-                question.QuestionLemmatized = GETQuestionLematized(question.SentanceW);
+                    Question question = QuestionList[i];
+                    question.QuestionAfterProcess = QuestionsAfterProcess[i];
+                    question.LanguageId = language;
 
-                if (lang == "en")
-                {
-                    if (question.QuestionType == 0)
+                    question.QuestionText = question.QuestionText.Replace("\r\n", " ");
+                    if (question.LanguageId == Languages.Romanian)
                     {
-                        QuestionProcessEN qpEN = new QuestionProcessEN(question);
-                        question.IsNegative = qpEN.IsNegativeQuestion();
-                        question.QuestionType = qpEN.GetQuestionType();
-                        question.AnswerTypeExpected = qpEN.GetAnswerType();
+                        lang = "ro";
+                        parid = "ro";
                     }
                     else
                     {
-                        question.AnswerTypeExpected = (question.QuestionType == QuestionType.FactoidPerson) ? AnswerTypeExpected.Person : AnswerTypeExpected.Location;
+                        lang = "en";
+                        parid = "eng";
                     }
-                }
-                else if (lang == "ro")
-                {
-                    if (question.QuestionType == 0)
+
+                    question = BuildSentence(question, lang, parid);
+                    question.QuestionLemmatized = GETQuestionLematized(question.SentanceW);
+
+                    if (lang == "en")
                     {
-                        QuestionProcessRO qpRO = new QuestionProcessRO(question);
-                        question.IsNegative = qpRO.IsNegativeQuestion();
-                        question.QuestionType = qpRO.GetQuestionType();
-                        question.AnswerTypeExpected = qpRO.GetAnswerType();
+                        if (question.QuestionType == 0)
+                        {
+                            QuestionProcessEN qpEN = new QuestionProcessEN(question);
+                            question.IsNegative = qpEN.IsNegativeQuestion();
+                            question.QuestionType = qpEN.GetQuestionType();
+                            question.AnswerTypeExpected = qpEN.GetAnswerType();
+                        }
+                        else
+                        {
+                            question.AnswerTypeExpected = (question.QuestionType == QuestionType.FactoidPerson) ? AnswerTypeExpected.Person : AnswerTypeExpected.Location;
+                        }
                     }
-                    else
+                    else if (lang == "ro")
                     {
-                        question.AnswerTypeExpected = (question.QuestionType == QuestionType.FactoidPerson) ? AnswerTypeExpected.Person : AnswerTypeExpected.Location;
+                        if (question.QuestionType == 0)
+                        {
+                            QuestionProcessRO qpRO = new QuestionProcessRO(question);
+                            question.IsNegative = qpRO.IsNegativeQuestion();
+                            question.QuestionType = qpRO.GetQuestionType();
+                            question.AnswerTypeExpected = qpRO.GetAnswerType();
+                        }
+                        else
+                        {
+                            question.AnswerTypeExpected = (question.QuestionType == QuestionType.FactoidPerson) ? AnswerTypeExpected.Person : AnswerTypeExpected.Location;
+                        }
                     }
                 }
             }
@@ -110,11 +115,10 @@ namespace QuestionAnalisys
                 language = Languages.English;
             }
 
-            DOCUMENT SentenceQuestion = HttpHandlers.Deserialize<DOCUMENT>(response);
-
             ChankQuestion chanck = new ChankQuestion(response,language);
             if (service == Services.NamedEntityRecognizerWS)
             {
+                DOCUMENT SentenceQuestion = HttpHandlers.Deserialize<DOCUMENT>(response);
                 question.SentanceW = chanck.GetQuestionProcessed(SentenceQuestion);
                 question.KeyWords = chanck.KeyWords.OrderByDescending(o => o.Score).ToList();
                 question.Focus = chanck.Focus;
@@ -124,6 +128,39 @@ namespace QuestionAnalisys
             {
                 question.SentanceW = chanck.GetLemma();
                 question.Focus = chanck.Focus;
+                question.KeyWords = new List<Word>();
+                if(lang == "en")
+                {
+                    List<KeyWord> keywordsList = GETKeyWords(question.QuestionText, Languages.English);
+                    foreach(KeyWord kw in keywordsList)
+                    {
+                        string[] kwords= kw.Text.Split(' ');
+                        foreach(string x in kwords)
+                        {
+                            foreach(Word enkw in question.SentanceW.Words)
+                            {
+                                if(enkw.Value == x)
+                                {
+                                    enkw.Score = Convert.ToInt32(kw.Relevance.ToString().Substring(2, 2));
+                                    question.KeyWords.Add(enkw);
+                                }
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    foreach(Word rokw in question.SentanceW.Words)
+                    {
+                        if(rokw.POS == PartOfSpeech.NOUN || rokw.POS == PartOfSpeech.ADJECTIVE)
+                        {
+                            question.KeyWords.Add(rokw);
+                        }
+                    }
+
+                    question.KeyWords = question.KeyWords.OrderByDescending(x => x.Score).ToList();
+                }
             }
 
             return question;
@@ -131,78 +168,120 @@ namespace QuestionAnalisys
 
         private string GetLemmaRO(string question, string lang, string parid)
         {
-           string response = string.Empty;
-           if (!string.IsNullOrEmpty(question))
-           {
-                   var chunck = new NamedEntityRecognizerWS.NamedEntityRecognizerWS();
-                   chunck.Timeout = 5000;
-                   response = chunck.recognizeEntities(question, lang);
+            string response = string.Empty;
+            if (!string.IsNullOrEmpty(question))
+            {
+                if (service == Services.Default || service == Services.NamedEntityRecognizerWS)
+                {
+                    try
+                    {
+                        var chunck = new NamedEntityRecognizerWS.NamedEntityRecognizerWS();
+                        chunck.Timeout = 1000;
+                        response = chunck.recognizeEntities(question, lang);
+                        service = Services.NamedEntityRecognizerWS;
+                    }
+                    catch (Exception ex)
+                    {
+                        var ttl = new Racai.TTL();
+                        string sgmlQuestion = ttl.UTF8toSGML(question);
 
-                       if(string.IsNullOrEmpty(response))
-                       {
-                           var ttl = new  Racai.TTL();
-                           string sgmlQuestion = ttl.UTF8toSGML(question);
+                        if (!string.IsNullOrEmpty(sgmlQuestion))
+                        {
+                            sgmlQuestion = ttl.XCES(lang, parid, sgmlQuestion);
 
-                           if (!string.IsNullOrEmpty(sgmlQuestion))
-                           {
-                               sgmlQuestion = ttl.XCES(lang, parid, sgmlQuestion);
+                            if (!string.IsNullOrEmpty(sgmlQuestion))
+                            {
+                                response = ttl.SGMLtoUTF8(sgmlQuestion);
+                                if (!string.IsNullOrEmpty(response))
+                                {
+                                    service = Services.Racai;
+                                }
+                            }
+                        }
 
-                               if(!string.IsNullOrEmpty(sgmlQuestion))
-                               {
-                                   response = ttl.SGMLtoUTF8(sgmlQuestion);
-                                   if(!string.IsNullOrEmpty(response))
-                                   {
-                                       service = Services.Racai;
-                                   }
-                               }
-                           }
-                       }
-                       else
-                       {
-                           service = Services.NamedEntityRecognizerWS;
-                       }
-               
-           }
-           return response;
+                    }
+                }
+                else
+                {
+                    var ttl = new Racai.TTL();
+                    string sgmlQuestion = ttl.UTF8toSGML(question);
+
+                    if (!string.IsNullOrEmpty(sgmlQuestion))
+                    {
+                        sgmlQuestion = ttl.XCES(lang, parid, sgmlQuestion);
+
+                        if (!string.IsNullOrEmpty(sgmlQuestion))
+                        {
+                            response = ttl.SGMLtoUTF8(sgmlQuestion);
+                            if (!string.IsNullOrEmpty(response))
+                            {
+                                service = Services.Racai;
+                            }
+                        }
+                    }
+                }
+            }
+            return response;
         }
 
-        private string  GetLemmaEN(string question,string lang, string parid)
+        private string GetLemmaEN(string question, string lang, string parid)
         {
-           string response = string.Empty;
+            string response = string.Empty;
 
-           if(!string.IsNullOrEmpty(question))
-           {
-                   var lema = new NamedEntityRecognizerWS.NamedEntityRecognizerWS();
-                   lema.Timeout = 5000;
-                   response = lema.recognizeEntities(question, lang);
+            if (!string.IsNullOrEmpty(question))
+            {
+                if (service == Services.Default || service == Services.NamedEntityRecognizerWS)
+                {
+                    try
+                    {
+                        var lema = new NamedEntityRecognizerWS.NamedEntityRecognizerWS();
+                        lema.Timeout = 1000;
+                        response = lema.recognizeEntities(question, lang);
+                        service = Services.NamedEntityRecognizerWS;
+                    }
+                    catch (Exception)
+                    {
+                        var ttl = new Racai.TTL();
+                        string sgmlQuestion = ttl.UTF8toSGML(question);
 
-                   if (string.IsNullOrEmpty(response))
-                   {
-                       var ttl = new Racai.TTL();
-                       string sgmlQuestion = ttl.UTF8toSGML(question);
+                        if (!string.IsNullOrEmpty(sgmlQuestion))
+                        {
+                            sgmlQuestion = ttl.XCES(lang, parid, sgmlQuestion);
+                            if (!string.IsNullOrEmpty(sgmlQuestion))
+                            {
+                                response = ttl.SGMLtoUTF8(sgmlQuestion);
 
-                       if (!string.IsNullOrEmpty(sgmlQuestion))
-                       {
-                           sgmlQuestion = ttl.XCES(lang, parid, sgmlQuestion);
-                           if (!string.IsNullOrEmpty(sgmlQuestion))
-                           {
-                               response = ttl.SGMLtoUTF8(sgmlQuestion);
+                                if (!string.IsNullOrEmpty(response))
+                                {
+                                    service = Services.Racai;
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    var ttl = new Racai.TTL();
+                    string sgmlQuestion = ttl.UTF8toSGML(question);
 
-                               if (!string.IsNullOrEmpty(response))
-                               {
-                                   service = Services.Racai;
-                               }
-                           }
-                       }
-                   }
-                   else
-                   {
-                       service = Services.NamedEntityRecognizerWS;
-                   }
-               
-           }
+                    if (!string.IsNullOrEmpty(sgmlQuestion))
+                    {
+                        sgmlQuestion = ttl.XCES(lang, parid, sgmlQuestion);
+                        if (!string.IsNullOrEmpty(sgmlQuestion))
+                        {
+                            response = ttl.SGMLtoUTF8(sgmlQuestion);
 
-           return response;
+                            if (!string.IsNullOrEmpty(response))
+                            {
+                                service = Services.Racai;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            return response;
         }
 
         private List<KeyWord> GETKeyWords(string questionText, Languages language)
@@ -248,7 +327,7 @@ namespace QuestionAnalisys
             {
                 foreach(Word word in sentence.Words.OrderBy(o => o.offset).ToList())
                 {
-                    questionLematized += word.Value + " ";
+                    questionLematized += word.LEMMA + " ";
                 }
             }
             return questionLematized.Trim();

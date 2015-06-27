@@ -59,3 +59,14 @@ E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\APIs.pdb
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Debug\SmartQA.csprojResolveAssemblyReference.cache
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Debug\SmartQA.dll
 E:\WorkSpace\Platform\SmartQuizZ\SmartQA\obj\Debug\SmartQA.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\InterfaceModule.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\ConsoleApplication1.exe
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\AnswerEvaluation.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Lucene.Net.dll
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\DeserializeProject.exe
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\InterfaceModule.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\ConsoleApplication1.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\AnswerEvaluation.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Lucene.Net.pdb
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\Lucene.Net.xml
+E:\WorkSpace\Platform\SmartQuizZ\SmartQA\bin\DeserializeProject.pdb
