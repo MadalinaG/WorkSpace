@@ -177,6 +177,7 @@
     <Compile Include="Models\AnswerM.cs" />
     <Compile Include="Models\AnswerModels.cs" />
     <Compile Include="Models\BGDocument.cs" />
+    <Compile Include="Models\BGInterface.cs" />
     <Compile Include="Models\ContactModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

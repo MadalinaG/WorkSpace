@@ -229,6 +229,7 @@ namespace SmartQA.Controllers
             List<BGDocument> bgDocuments = new List<BGDocument>();
             DataAccess dbWork = new DataAccess(connectionString);
             string topicName = dbWork.getTopicName(test.TopicID);
+            test.ID = dbWork.GetMAXIdForTable("Test");
             string pathBGDOC = Path.Combine(Server.MapPath("~/UserFiles/"), User.Identity.GetUserId(), "BackgroundDocuments",topicName);
             string pathQuiz = Path.Combine(Server.MapPath("~/UserFiles/"), User.Identity.GetUserId(), "Tests", topicName);
             DirectoryInfo dir1 = new DirectoryInfo(pathBGDOC);
@@ -681,7 +682,27 @@ namespace SmartQA.Controllers
         {
             DataAccess dbWork = new DataAccess(connectionString);
             TestModels testSelected = dbWork.GetTest(quizID);
-            
+            List<BGDocument> bgDocs = dbWork.GetBDDocuments(testSelected.TopicID);
+            List<BGDocument> bgDocsForQuiz = new List<BGDocument>();
+            List<BGDocument> bgDocsFromTopic = new List<BGDocument>();
+            foreach(BGDocument bgDoc in bgDocs)
+            {
+                if(bgDoc.TestID == testSelected.ID)
+                {
+                    bgDocsForQuiz.Add(bgDoc);
+                }
+                else
+                {
+                    bgDocsFromTopic.Add(bgDoc);
+                }
+            }
+            BGInterface bgInterface = new BGInterface();
+            bgInterface.BackgroundDocument = bgDocsForQuiz;
+            string xmlgbDocs = HttpHandlers.SerializeToString<BGInterface>(bgInterface);
+            InterfaceModule.CallAnswersExtraction call = new InterfaceModule.CallAnswersExtraction(testSelected.XmlAfterProcess, xmlgbDocs);
+            List<QuestionAnalisys.Question> QuestionList;
+            call.Answers();
+            QuestionList = call.QuestionList;
             return View();
         }
 

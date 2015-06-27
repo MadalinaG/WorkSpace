@@ -16,7 +16,7 @@ namespace AnswerEvaluation
     public class AnswerExtract
     {
         private List<BackgroundDocument> Documents;
-        private List<Question> QuestionList;
+        public List<Question> QuestionList;
         private int NrOfQuestionAnswered = 0;
 
         string searchField = "ProcessedText";

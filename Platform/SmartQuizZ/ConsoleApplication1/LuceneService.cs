@@ -16,20 +16,22 @@ namespace IndexerLucene
     public class LuceneService : ILuceneService
     {
         //public Analyzer analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
-        public Analyzer analyzer = new WhitespaceAnalyzer();
+        public Analyzer analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
 
         private static FSDirectory _directoryTemp;
         private IndexWriter writer;
-        private string indexPath = @"D:\temp\LuceneIndex";
+        
+        private static  string indexPath = @"/LuceneIndex";
+        private string path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath(indexPath));
         private IndexReader reader;
         static readonly char[] whiteSpaces = new char[] { ' ', '\t', '\n', '\r' };
         private FSDirectory directory
         {
             get
             {
-                if (_directoryTemp == null) _directoryTemp = FSDirectory.Open(new DirectoryInfo(indexPath));
+                if (_directoryTemp == null) _directoryTemp = FSDirectory.Open(new DirectoryInfo(path));
                 if (IndexWriter.IsLocked(_directoryTemp)) IndexWriter.Unlock(_directoryTemp);
-                var lockFilePath = Path.Combine(indexPath, "write.lock");
+                var lockFilePath = Path.Combine(path, "write.lock");
                 if (File.Exists(lockFilePath)) File.Delete(lockFilePath);
                 return _directoryTemp;
             }
@@ -42,12 +44,12 @@ namespace IndexerLucene
 
         private void InitialiseLucene()
         {
-            if (System.IO.Directory.Exists(indexPath))
+            if (System.IO.Directory.Exists(path))
             {
-                System.IO.Directory.Delete(indexPath, true);
+                System.IO.Directory.Delete(path, true);
             }
 
-            System.IO.Directory.CreateDirectory(indexPath);
+            System.IO.Directory.CreateDirectory(path);
             writer = new IndexWriter(directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
         }
 
@@ -62,7 +64,7 @@ namespace IndexerLucene
                     Document doc = new Document();
                     doc.Add(new Field("TestId", sampleDataFileRow.TestID.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
                     doc.Add(new Field("Name", sampleDataFileRow.FileName.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
-
+                    
                     doc.Add(new Field("Text", text, Field.Store.YES, Field.Index.ANALYZED));
                     //doc.Add(new Field("ProcessedText", sampleDataFileRow.ProcessedParagraphs[++i], Field.Store.YES, Field.Index.ANALYZED));
                     writer.AddDocument(doc);
@@ -109,7 +111,7 @@ namespace IndexerLucene
         {
             //if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", ""))) return new List<BackgroundDocument>();
 
-            //analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
+            analyzer = new StandardAnalyzer(Lucene.Net.Util.Version.LUCENE_30);
             reader = IndexReader.Open(directory, true);
 
             IndexSearcher searcher = new IndexSearcher(reader);

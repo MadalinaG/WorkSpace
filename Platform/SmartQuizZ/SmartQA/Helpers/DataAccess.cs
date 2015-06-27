@@ -71,7 +71,59 @@ namespace SmartQA.Helpers
 
             return Topics;
         }
+        public List<BGDocument> GetBDDocuments( int topicId)
+        {
+            List<BGDocument> bgDocuments = new List<BGDocument>();
+            if (_connectionString != string.Empty)
+            {
+                try
+                {
+                    using (SqlConnection connection = new SqlConnection(_connectionString))
+                    {
+                        connection.Open();
 
+                        using (SqlTransaction transaction = connection.BeginTransaction())
+                        {
+
+                            using (SqlCommand command = new SqlCommand(getBGDoc, connection, transaction))
+                            {
+                                command.Parameters.Add("@TopicId", SqlDbType.Int).Value = topicId;
+
+                                using (SqlDataReader reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        BGDocument bgDoc = new BGDocument();
+                                        for (int i = 0; i < reader.FieldCount; i++)
+                                        {
+                                            bgDoc.ID = Convert.ToInt32(reader["ID"]);
+                                            bgDoc.Title = reader["Title"].ToString();
+                                            bgDoc.TopicID = Convert.ToInt32(reader["TopicID"].ToString());
+                                            bgDoc.TestID = Convert.ToInt32(reader["TestID"].ToString());
+                                            DateTime date;
+                                            DateTime.TryParse(reader["AddedTime"].ToString(), out date);
+                                            bgDoc.AddedTime = date;
+                                            bgDoc.AddedByID = reader["AddedByID"].ToString();
+                                            bgDoc.FileName = reader["FileName"].ToString();
+                                            bgDoc.Path = reader["Path"].ToString();
+                                           
+                                        }
+                                        bgDocuments.Add(bgDoc);
+                                    }
+                                }
+                            }
+                        }
+                        connection.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WriteErrorToDb(ex.Message);
+                }
+            }
+
+            return bgDocuments;
+        }
         public List<TopicModels> GetAllTopics()
         {
             List<TopicModels> Topics = new List<TopicModels>();
@@ -1660,6 +1712,8 @@ namespace SmartQA.Helpers
 
 
 
-       
+        private static string getBGDoc = @"SELECT * FROM BackgroundDocument WHERE TopicID = @TopicId";
+
+      
     }
 }
